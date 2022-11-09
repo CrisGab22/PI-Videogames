@@ -1,30 +1,47 @@
 const { Router } = require('express');
-const axios = require('axios')
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
+const axios = require('axios') //alguna vez lo usas?
+const getAllVideogames = require('../controllers.js/controllers') // funcion que me devuelve los primeros 100 videojuegos de la API
 
 
 const router = Router();
 
+// Importar todos los routers;
+// Ejemplo: const authRouter = require('./auth.js');
+
+
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-require('dotenv').config();
-const {API_URL, API_KEY} = process.env
-console.log(API_URL, API_KEY)
 
-const getApiInfo = async () =>{
-    const call = await axios.get(`${API_URL}=${API_KEY}`)
-    const response = await call.data.results.map(game =>{
-        return{
-            name: game.name
+// const getGamesApi = async() =>{
+//     const info = await getAllGamesApi()
+//     console.log(info)
+// }
+
+
+
+
+router.get('/videogames', async(req, res) =>{
+    const name = req.query.name
+    const Allvideogames = await getAllVideogames()
+    
+    if(name){
+        let VideogameName = await Allvideogames.filter(game => game.name.toLowerCase() == name.toLowerCase())
+        if(VideogameName.length){
+            res.status(200).send(VideogameName)
         }
-    })
-    return response
-}
+        else{
+            res.status(404).send('no se encontró el videojuego con ese nombre')
+        }
+    }
+    else{
+        res.status(200).send(Allvideogames)
+    }
+})
 
-let a = getApiInfo()
-setTimeout(() => console.log(a),1000)
+
+
 
 
 module.exports = router;
