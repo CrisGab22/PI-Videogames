@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
     },
     createdInDb: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      psqlallowNull: false,
       defaultValue: true,
     }
   });

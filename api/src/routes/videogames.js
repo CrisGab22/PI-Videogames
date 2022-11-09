@@ -1,0 +1,56 @@
+const express = require('express')
+const routeVideogames = express.Router()
+const {Videogame, Genre} = require('../db')
+
+const {getAllVideogames} = require('../controllers.js/controllers') // funcion que me devuelve los primeros 100 videojuegos de la API
+
+routeVideogames.get('/', async(req, res) =>{
+    const name = req.query.name
+    const Allvideogames = await getAllVideogames()
+    
+    if(name){
+        let VideogameName = await Allvideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
+        if(VideogameName.length){
+            if (VideogameName.length <16) { // verificamos que los juegos que coincidan con el nombre sean menores a 15 para traerlos todos
+                res.status(200).send(VideogameName)
+            }
+            else if (VideogameName.length >15){
+                res.status(200).send(VideogameName)
+            }
+        }
+        else{
+            res.status(404).send('no se encontró un videojuego que coincida con ese nombre')
+        }
+    }
+    else{
+        res.status(200).send(Allvideogames)
+    }
+});
+
+
+routeVideogames.post('/', async(req,res) =>{
+    const {name, description, released, rating, img, platforms, genre, createdInDb} = req.body
+
+    let newVideogame = await Videogame.create({ //agregamos un videojuego en nuestra base de datos rellenando los siguientes parámetros
+        name,
+        description,
+        released,
+        rating,
+        img,
+        platforms,
+        createdInDb,
+    });
+
+    const genreDb = await Genre.findAll({ // primero verificamos que el genero pasado esté disponible en nuestra tabla de generos y lo guardamos en una constante
+        where:{
+            name: genre 
+        }
+    });
+
+    newVideogame.addGenre(genreDb)
+    res.send('¡¡¡Su videojuego se ha agregado!!!')
+})
+
+
+module.exports = routeVideogames;
+

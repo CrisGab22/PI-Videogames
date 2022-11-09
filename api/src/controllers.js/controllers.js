@@ -1,15 +1,15 @@
 require('dotenv').config();
-const {API_URL, API_KEY} = process.env
+const {API_URL_GAMES, API_KEY, API_URL_GENRES} = process.env
 const axios = require('axios')
 const {Videogame, Genre} = require('../db')
 
 //funcion que me trae todos los primeros 100 juegos de la API 
 getAllGamesApi = async(videogames =[]) => await Promise.allSettled([ //le ponemos como valor por defecto el videogames para así tener un array contenedor de videojuegos sin necesidad de que me pasen un parámetro 
-    axios.get(`${API_URL}=${API_KEY}&page=1`),
-    // axios.get(`${API_URL}=${API_KEY}&page=2`),
-    // axios.get(`${API_URL}=${API_KEY}&page=3`),
-    // axios.get(`${API_URL}=${API_KEY}&page=4`),
-    // axios.get(`${API_URL}=${API_KEY}&page=5`),
+    axios.get(`${API_URL_GAMES}=${API_KEY}&page=1`),
+    // axios.get(`${API_URL_GAMES}=${API_KEY}&page=2`),
+    // axios.get(`${API_URL_GAMES}=${API_KEY}&page=3`),
+    // axios.get(`${API_URL_GAMES}=${API_KEY}&page=4`),
+    // axios.get(`${API_URL_GAMES}=${API_KEY}&page=5`),
 ])
     .then(values =>{     
         return [respuesta1, respuesta2, respuesta3, respuesta4, respuesta5] = values}) //guardamos los resultados de cada promesa en un array 
@@ -42,6 +42,19 @@ getAllGamesDb = async() =>{
     })
 };
 
+//función que me trae todos los generos de la API
+getAllGenreApi = async() => {
+    const allInfoApiGenres =  await axios.get(`${API_URL_GENRES}=${API_KEY}`)
+    .then(info =>info.data.results)
+    .then(info => info.map(genre => {
+        return{
+            name: genre.name,
+        }
+    }));
+    const allGenresApi = await allInfoApiGenres
+    return allGenresApi
+}
+
 
 //funcion que concatena la info de las 2 anteriores funciones
 getAllVideogames = async() =>{
@@ -51,4 +64,7 @@ getAllVideogames = async() =>{
     return AllGames
 } 
 
-module.exports= getAllVideogames
+module.exports= {
+    getAllVideogames,
+    getAllGenreApi,
+}
