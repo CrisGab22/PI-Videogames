@@ -47,11 +47,6 @@ getAllGamesDb = async() =>{
 };
 
 
-// //funcion que concatena la info de las 2 anteriores funciones
-// getAllVideogames = async() =>{
-//     const dbGames = await getAllGamesDb()
-//     return dbGames
-// } 
 
 //función que me trae todos los generos de la API
 getAllGenreApi = async() => {
@@ -117,8 +112,27 @@ const videogameId = async(id) =>{
     return(filterGameInfo)
 }
 
+//funcion que me busca los juegos creados en mi DB
+const videogameDbId = async (id) =>{
+    const gameInfo = Videogame.findAll({
+        attributes:['name', 'description', 'released', 'rating', 'img', 'platforms'],
+        where:{
+            "idgame": id 
+        },
+        include:{
+            model: Genre,
+            attributes: ['name'], // me trae solo el atributo nombre de la tabla Genre
+            through: { 
+                attributes: [], // con esto solo me trae información de los atributos de la tabla (ignorando la información de la tabla intermedia)
+            },
+        }
+    })
+    return gameInfo
+}
+
 module.exports= {
     genresCreator,
     videogamesCreator,
-    videogameId
+    videogameId,
+    videogameDbId
 }

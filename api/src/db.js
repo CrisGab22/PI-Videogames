@@ -34,8 +34,8 @@ const { Videogame, Genre } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
-Videogame.belongsToMany(Genre, {through: "videogame-genre" });
-Genre.belongsToMany(Videogame, {through: "videogame-genre" });
+Videogame.belongsToMany(Genre, {through: "videogame-genre" }); //aunque no puedo aprovechar esta tabla intermedia para aplicarselo a todos los juegos de la API y así hace un filtrado desde el backennd (porque la instruciones dicen que es necesario hacerlo desde el frontend)
+Genre.belongsToMany(Videogame, {through: "videogame-genre" }); // me ayuda a que los usuarios solo puedan guardar ciertos generos de juegos de todos los generos definidos en esta tabla intermedia  
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

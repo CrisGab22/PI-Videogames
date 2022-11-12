@@ -1,20 +1,32 @@
 const express = require('express')
 const routeVideogame = express.Router()
-const {videogameId} = require('../controllers.js/controllers')
+const {videogameId, videogameDbId} = require('../controllers.js/controllers')
 
 
 routeVideogame.get('/:idVideogame', async(req,res) =>{
     const {idVideogame} = req.params
     
-    try {
-        const gameInfo = await videogameId(idVideogame)
-        if(gameInfo.name) res.status(200).send(gameInfo)
-        
-    } catch (error) {
-        res.status(404).json({error: error.message})
+    if(idVideogame <= 111111110){ // esto es en caso de que sea un juego de la Api
+        try {
+            const gameInfo = await videogameId(idVideogame)
+            if(gameInfo.name) res.status(200).send(gameInfo)
+            
+        } catch (error) {
+            res.status(404).send("Lo sentimos el ID de este juego no es válido")
+        }
     }
-
-    //te falta hacer algo en caso de que quieras acceder a la informacion de un juego que no provenga de la API (sino que fue creado por ti)
+    else{    // En caso de que sea un juego creado guardado en mi BD
+        const gameCreatedInfo = await videogameDbId(idVideogame)
+        if(gameCreatedInfo.length){
+            res.status(200).send(gameCreatedInfo)
+        }
+        else{
+            res.status(404).send("Lo sentimos el ID de este juego no está disponible en nuestra base de datos")
+        }
+    }
 })
+
+
+
 
 module.exports= routeVideogame

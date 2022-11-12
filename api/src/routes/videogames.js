@@ -5,7 +5,7 @@ const {Videogame, Genre} = require('../db')
 routeVideogames.get('/', async(req, res) =>{
     const name = req.query.name
     const Allvideogames = await Videogame.findAll({
-        attributes: ['idgame','name','rating','img','platforms'] //borra idgame si no lo crees necesario
+        attributes: ['idgame','name','rating','released','img','platforms'] //borra idgame si no lo crees necesario
     })
     
     if(name){
@@ -29,7 +29,7 @@ routeVideogames.get('/', async(req, res) =>{
 
 
 routeVideogames.post('/', async(req,res) =>{
-    const {name, description, released, rating, img, platforms, genre, createdInDb} = req.body
+    const {name, description, released, rating, img, platforms, genre} = req.body
 
     let newVideogame = await Videogame.create({ //agregamos un videojuego en nuestra base de datos rellenando los siguientes parámetros
         name,
@@ -38,7 +38,6 @@ routeVideogames.post('/', async(req,res) =>{
         rating,
         img,
         platforms,
-        createdInDb,
     });
 
     let genreDb = await Genre.findAll({ // primero verificamos que el genero pasado esté disponible en nuestra tabla de generos y lo guardamos en una constante
