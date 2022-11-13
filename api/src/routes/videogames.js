@@ -5,7 +5,7 @@ const {Videogame, Genre} = require('../db')
 routeVideogames.get('/', async(req, res) =>{
     const name = req.query.name
     const Allvideogames = await Videogame.findAll({
-        attributes: ['idgame','name','rating','released','img','platforms'] //borra idgame si no lo crees necesario
+        attributes: ['id','idgame','name','rating','released','img','platforms'] //borra idgame si no lo crees necesario
     })
     
     if(name){
