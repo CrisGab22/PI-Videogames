@@ -5,7 +5,17 @@ const {Videogame, Genre} = require('../db')
 routeVideogames.get('/', async(req, res) =>{
     const name = req.query.name
     const Allvideogames = await Videogame.findAll({
-        attributes: ['id','idgame','name','rating','released','img','platforms'] //borra idgame si no lo crees necesario
+        attributes:{
+            exclude: ['createdAt', 'updatedAt']
+        } //borra idgame si no lo crees necesario
+        ,
+            include:{
+                model: Genre,
+                attributes: ['name'], // me trae solo el atributo nombre de la tabla Genre
+                through: { 
+                    attributes: [], // con esto solo me trae información de los atributos de la tabla (ignorando la información de la tabla intermedia)
+                },
+            }
     })
     
     if(name){
@@ -29,7 +39,7 @@ routeVideogames.get('/', async(req, res) =>{
 
 
 routeVideogames.post('/', async(req,res) =>{
-    const {name, description, released, rating, img, platforms, genre} = req.body
+    const {name, description, released, rating, img, platforms, genres, createdInDb} = req.body
 
     let newVideogame = await Videogame.create({ //agregamos un videojuego en nuestra base de datos rellenando los siguientes parámetros
         name,
@@ -38,11 +48,13 @@ routeVideogames.post('/', async(req,res) =>{
         rating,
         img,
         platforms,
+        localGenres: genres,
+        createdInDb : true,
     });
 
     let genreDb = await Genre.findAll({ // primero verificamos que el genero pasado esté disponible en nuestra tabla de generos y lo guardamos en una constante
         where:{
-            name: genre 
+            name: genres 
         }
     });
 

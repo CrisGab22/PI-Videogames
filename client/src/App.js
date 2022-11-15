@@ -1,6 +1,6 @@
 import './App.css';
 import NavBar from './components/Nav.jsx'
-import Videogames from './components/Videogames.jsx'
+import Home from './components/Home.jsx'
 import Detail from './components/Detail.jsx'
 import About from './components/About.jsx'
 import {Route} from 'react-router-dom'
@@ -15,7 +15,7 @@ function App() {
 
       <Route path="/home" render={() => <NavBar /> }/>
 
-      <Route exact path="/home" render={() => <Videogames /> }/>
+      <Route exact path="/home" render={() => <Home /> }/>
 
       <Route path="/home/videogame" render={() => <Detail /> }/>
 

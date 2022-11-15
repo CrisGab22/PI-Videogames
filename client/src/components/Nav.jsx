@@ -6,9 +6,9 @@ import style from '../components.css/nav.module.css'
 function Navbar() {
     return(
         <div className={`${style.contenedor}`}>
-            <Link to="/" className={`${style.linkHome} ${style.links}`}>Home</Link>
+            <Link to="/home" className={`${style.linkHome} ${style.links}`}>Home</Link>
             <SearchBar/>
-            <Link to="/about" className={`${style.linkAbout} ${style.links}`}>About me</Link>
+            <Link to="/home/about" className={`${style.linkAbout} ${style.links}`}>About me</Link>
         </div>
     )
 }

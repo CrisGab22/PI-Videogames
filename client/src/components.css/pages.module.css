@@ -1,0 +1,39 @@
+.container{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding:  20px 0;
+}
+.containerPages{
+    display: flex;
+    align-items: center;
+}
+.page{
+    display: flex;  
+    align-items: center;
+    background-color: rgb(78, 117, 190);
+    padding: 10px 15px;
+}
+.pageActual{
+    background-color: rgb(110, 146, 187);
+    
+}
+
+.page:hover{
+    background-color: rgb(95, 105, 160);
+    cursor: pointer;
+}
+
+.button{
+    display: flex;
+    padding: 8px 12px;
+    align-items: center;
+    margin: 0 10px;
+    border: 1px solid ;
+    border-radius: 7px;
+}
+
+.button:hover{
+    cursor: pointer;
+    background-color: rgb(204, 255, 238);
+}

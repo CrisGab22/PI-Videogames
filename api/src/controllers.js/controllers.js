@@ -23,7 +23,8 @@ getAllGamesApi = async(videogames =[]) => await Promise.allSettled([ //le ponemo
                 released: game.released,
                 rating: game.rating,
                 img: game.background_image,
-                platforms: game.platforms.map(el => el.platform.name)       
+                platforms: game.platforms.map(el => [ el.platform.name,el.platform.id]),
+                localGenres: game.genres.map(el => el.name)       
        }
    })) 
 })
@@ -42,7 +43,7 @@ getAllGamesDb = async() =>{
             through: { 
                 attributes: [], // con esto solo me trae información de la atributos de la tabla (ignorando la información de la tabla intermedia)
             },
-        }
+        },
     })
 };
 
@@ -68,7 +69,6 @@ const genresCreator = async() =>{
         Genre.findOrCreate({
             where:{
                 name: genre.name,
-
             }
         })
     })
@@ -85,7 +85,8 @@ const videogamesCreator = async() =>{
                 released: game.released,
                 rating: game.rating,
                 img: game.img,
-                platforms: game.platforms
+                platforms: game.platforms,
+                localGenres: game.localGenres
             }
         })
     })
@@ -103,7 +104,7 @@ const videogameId = async(id) =>{
         released: gameInfo.released,
         rating: gameInfo.rating,
         alternative_names: gameInfo.alternative_names,
-        platform: gameInfo.platforms.map(plataform => plataform.platform.name),
+        platform: gameInfo.platforms.map(platform => platform.platform.name),
         developers: gameInfo.developers.map(dev => dev.name),
         genres: gameInfo.genres.map(genre=> genre.name),
         stores: gameInfo.stores.map(el => el.store.name)
