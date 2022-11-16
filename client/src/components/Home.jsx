@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import {filterByGenre, getAllGenres, getAllVideogames, filterByAlphabetically, filterByOrigin} from '../redux/actions'
+import {filterByGenre, getAllGenres, getAllVideogames, filterByAlphabetically, filterByOrigin, filterByRating} from '../redux/actions'
 import style from '../components.css/home.module.css'
 
 
@@ -19,30 +19,31 @@ export default function Videogames () {
 
     
 //react-redux
-    let videogames = useSelector(state => state.videogamesFiltered)
+    let videogames = useSelector(state => state.videogamesRender)
     let genres= useSelector(state => state.genres)
     const dispatch = useDispatch()
 
     useEffect(() =>{
         dispatch(getAllVideogames())
         dispatch(getAllGenres())
+        
     },[dispatch])
 //fin react-redux
 
 
 //Paginado
     //states
-        const [CurrentPage, setCurrentPage] = useState(1)
+        const [actualPage, setActualPage] = useState(1)
+        const [renderControl, setRenderControl] = useState('')
+        const[videogamesPerPage, setVideogamesPerPage] = useState(15)
     //función recorredora del paginado
         const current = (numberpage)=>{
-        setCurrentPage(numberpage)
+            setActualPage(numberpage)
         }
     //const
-        const actualPage = CurrentPage
-        const videogamesRenderPerPage = 15
-        const indexOfLastVideogame= CurrentPage* videogamesRenderPerPage
-        const indexOfFirstVideogame= indexOfLastVideogame - videogamesRenderPerPage
-        const videogamesSliced = videogames?.slice(indexOfFirstVideogame, indexOfLastVideogame) 
+        const indexOfLastVideogame= actualPage* videogamesPerPage
+        const indexOfFirstVideogame= indexOfLastVideogame - videogamesPerPage
+        const videogamesSliced = videogames.slice(indexOfFirstVideogame, indexOfLastVideogame) 
 //fin paginado
 
 
@@ -50,21 +51,35 @@ export default function Videogames () {
     //Genre
         //función despachadora
         function handleFilterByGenre(e) {
-            const info = dispatch(filterByGenre(e.target.value))
-            info?setCurrentPage(1): setCurrentPage(0)
+            dispatch(filterByGenre(e.target.value))
+            setActualPage(1)
+            setVideogamesPerPage(15)
+            setRenderControl(`ordenado por Genre ${e.target.value}`)
         }
     //Alphabetically
         //función despachadora
         function handleFilterByAlphabetically(e) {
-            const info = dispatch(filterByAlphabetically(e.target.value))
-            info? setCurrentPage(1): setCurrentPage(0)        
+            dispatch(filterByAlphabetically(e.target.value))
+            setActualPage(1)
+            setRenderControl(`ordenado por alphabetically ${e.target.value}`)
+
         }
     //Origin
         //funcion despachadora
         function handleFilterByOrigin(e) {
-            const info = dispatch(filterByOrigin(e.target.value))
-            info? setCurrentPage(1): setCurrentPage(0)        
+            dispatch(filterByOrigin(e.target.value)) 
+            setActualPage(1)
+            setRenderControl(`ordenado por origin ${e.target.value}`)
         }
+     //Rating
+        //funcion despachadora
+        function handleFilterByRating(e) {
+            dispatch(filterByRating(e.target.value)) 
+            setActualPage(1)
+            setRenderControl(`ordenado por rating ${e.target.value}`)
+        }  
+        console.log(renderControl)
+        console.log(videogames)
 
 
 return(
@@ -74,11 +89,11 @@ return(
             <Alphabetically handleFilterByAlphabetically={handleFilterByAlphabetically}/>
             <Genres genres ={genres} handleFilterByGenre={handleFilterByGenre}/>
             <Origin handleFilterByOrigin={handleFilterByOrigin}/>
-            <Rating/>
+            <Rating handleFilterByRating={handleFilterByRating}/>
         </div>
         
 
-            <Pages videogames={videogames} current = {current} actualPage = {actualPage}/>
+            <Pages  current ={current} actualPage = {actualPage} videogames={videogames.length}/>
 
         <div className={style.Containervideogames}>
             {videogamesSliced &&  videogamesSliced.map(game => {
@@ -86,7 +101,7 @@ return(
                 videogames= {videogames}
                 key= {game.id}
                 name={game.name}
-                released={game.released}
+                localGenres ={game.localGenres}
                 img={game.img}
                 platforms= {game.platforms}
                 />

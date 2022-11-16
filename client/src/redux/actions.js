@@ -4,7 +4,8 @@ export const GET_GENRES = 'GET_GENRES'
 export const FILTER_BY_GENRES = 'FILTER_BY_GENRES'
 export const FILTER_BY_ALPHABETICALLY = 'FILTER_BY_ALPHABETICALLY'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
-// const GET_VIDEOGAMES_DB = 'GET_VIDEOGAMES_DB'
+export const FILTER_BY_RATING = 'FILTER_BY_RATING'
+export const GET_VIDEOGAMES_BY_NAME = 'GET_VIDEOGAMES_BY_NAME'
 
 export function getAllVideogames(){
     return async function videogames(dispatch){
@@ -21,6 +22,20 @@ export function getAllGenres(){
         .then(info => info.data)
         .then(info => dispatch({type: GET_GENRES, payload: info}))
         return genres
+    }
+}
+
+export function getAllVideogamesName(name){
+    return async function videogamesName(dispatch){
+        try {     
+            const videogamesName = await axios.get(`http://localhost:3001/videogames?name=${name}`)
+            .then(info => info.data)
+            .then(info => dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: info}))
+            return videogamesName
+        } catch (error) {
+            console.log('hemos fallado')
+            return dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: 'No se encontro nada'})
+        }
     }
 }
 
@@ -42,6 +57,12 @@ export function filterByOrigin(origin){
     return{
         type: FILTER_BY_ORIGIN,
         payload: origin
+    }
+}
+export function filterByRating(rating){
+    return{
+        type: FILTER_BY_RATING,
+        payload: rating
     }
 }
 

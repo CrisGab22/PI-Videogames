@@ -1,4 +1,3 @@
-import './App.css';
 import NavBar from './components/Nav.jsx'
 import Home from './components/Home.jsx'
 import Detail from './components/Detail.jsx'

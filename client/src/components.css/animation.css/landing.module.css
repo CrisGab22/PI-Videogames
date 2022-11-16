@@ -1,0 +1,127 @@
+@keyframes bounce{
+    0%{opacity: 0%; }
+    19%{opacity: 0%;}
+    20%{opacity: 100%; transform: translateY(-50rem);} /*caida inicial*/
+    40%{ transform: translateY(6rem);} /*hundimiento*/
+    70%{ transform: translateY(-6rem);} /*rebote*/ 
+    100%{transform: translateY(0);}
+}
+
+@keyframes expand {
+    25%{transform: rotate(3deg);}
+    55%{transform: rotate(-3deg);}
+    85%{transform: rotate(3deg);}
+}
+
+@keyframes init{
+    0%{opacity: 0%;}
+    15%{opacity: 0%;}
+    30%{transform: translateY(3rem);}
+    70%{opacity:100%;transform: translateY(-.5rem);}
+    90%{transform: translateY(0);}
+}
+@keyframes expand {
+    25%{transform: rotate(3deg);}
+    55%{transform: rotate(-3deg);}
+    85%{transform: rotate(3deg);}
+}
+
+@keyframes barrer{
+    0%{transform: translateX(-100vw); opacity: 0%;}
+    5%{opacity: 0;}
+    40%{opacity: 100%;}
+    100%{transform: translateX(0);}
+}
+
+.logos{
+    animation-name: barrer;
+    animation-duration: 1200ms;
+}
+.containerButton{
+    animation-name: init;
+    animation-duration: 1500ms;
+}
+.button:hover{
+    animation-name: expand;
+    animation-duration: 400ms;
+    background-color: rgb(57, 23, 88);
+}
+.titleW{
+    animation-name: bounce;
+    animation-duration: 700ms;
+}
+.titleEone{
+    animation-name: bounce;
+    animation-duration: 750ms;
+}
+.titleL{
+    animation-name: bounce;
+    animation-duration: 800ms;
+}
+.titleC{
+    animation-name: bounce;
+    animation-duration: 850ms;
+
+}
+.titleO{
+    animation-name: bounce;
+    animation-duration: 900ms;
+
+}
+.titleM{
+    animation-name: bounce;
+    animation-duration: 950ms;
+
+}
+.titleEtwo{
+    animation-name: bounce;
+    animation-duration: 1000ms;
+}
+.titleT{
+    animation-name: bounce;
+    animation-duration: 1050ms;
+}
+.titleOtwo{
+    animation-name: bounce;
+    animation-duration: 1100ms;
+}
+.titleMtwo{
+    animation-name: bounce;
+    animation-duration: 1150ms;
+}
+.titleY{
+    animation-name: bounce;
+    animation-duration: 1200ms;
+}
+.titleP{
+    animation-name: bounce;
+    animation-duration: 1250ms;
+}
+.titleR{
+    animation-name: bounce;
+    animation-duration: 1300ms;
+}
+.titleOthree{
+    animation-name: bounce;
+    animation-duration: 1350ms;
+}
+
+.titleJ{
+    animation-name: bounce;
+    animation-duration: 1400ms;
+}
+.titleEthree{
+    animation-name: bounce;
+    animation-duration: 1450ms;
+}
+.titleCtwo{
+    animation-name: bounce;
+    animation-duration: 1500ms;
+}
+.titleTtwo{
+    animation-name: bounce;
+    animation-duration: 1550ms;
+}
+.spaces{
+    visibility: hidden;
+}

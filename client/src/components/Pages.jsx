@@ -3,14 +3,16 @@ import style from "../components.css/pages.module.css"
 
 export default function Pages({videogames,current, actualPage}) {
     let pages = [] // el número de páginas de mi componente 
-    let numberLastPage = Math.ceil(videogames.length/15)
-    for(let i = 1; i<=numberLastPage; i++){
+    
+    for(let i = 1; i<=Math.ceil(videogames/15); i++){
         pages.push(i)
     }
-    console.log(videogames.length)
+
+
+
     return(
         <div className={style.container}>
-            <button onClick={() => current(actualPage-1)} disabled={(actualPage===1 ||videogames.length <1)?true:false} className={style.button}>Prev</button>
+            <button className={`${style.button} ${(actualPage === 0 || actualPage === 1)? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage-1)}>Prev</button>
             <ul className={style.containerPages}>
                 {pages.map(page=>{
                     if(page === actualPage){
@@ -22,8 +24,8 @@ export default function Pages({videogames,current, actualPage}) {
                         <li onClick={() => current(page)} className={style.page} key={page}> {page} </li>
                         )
                 })}
+            <button className={`${style.button} ${ (pages[pages.length-1] <= 1 ||actualPage == pages[pages.length-1] )? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage+1)}>Next</button>
             </ul>
-            <button onClick={() => current(actualPage+1)} disabled={(actualPage===numberLastPage || videogames.length===0)?true:false} className={style.button}>Next</button>
         </div>
     )
         

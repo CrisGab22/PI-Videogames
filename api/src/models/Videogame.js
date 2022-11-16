@@ -40,7 +40,7 @@ module.exports = (sequelize) => {
     },
     img:{
       type: DataTypes.STRING,
-      defaultValue: "don't exist a url"
+      defaultValue: "https://blogs.unsw.edu.au/nowideas/files/2020/04/videojuegos.jpg"
     },
     platforms:{
       type: DataTypes.ARRAY(DataTypes.STRING),

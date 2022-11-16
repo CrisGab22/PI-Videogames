@@ -1,8 +1,11 @@
-import {GET_ALL_VIDEOGAMES, GET_GENRES, FILTER_BY_GENRES, FILTER_BY_ALPHABETICALLY, FILTER_BY_ORIGIN } from "./actions";
+import {GET_VIDEOGAMES_BY_NAME, GET_ALL_VIDEOGAMES, GET_GENRES, FILTER_BY_GENRES,FILTER_BY_RATING, FILTER_BY_ALPHABETICALLY, FILTER_BY_ORIGIN } from "./actions";
 const initialState={
+    videogamesByName:[],
     videogames: [],
     genres: [],
-    videogamesFiltered:[]
+    videogamesRender:[],
+    videogamesFiltered: [],
+
 };
 
 const rootReducer = (state= initialState, action) =>{
@@ -11,6 +14,7 @@ const rootReducer = (state= initialState, action) =>{
             return {
                 ...state,
                 videogames: action.payload,
+                videogamesRender: action.payload,
                 videogamesFiltered: action.payload,
             }
         }
@@ -20,85 +24,117 @@ const rootReducer = (state= initialState, action) =>{
                 genres: action.payload
             }
         }
-
+        case GET_VIDEOGAMES_BY_NAME:{
+            return{
+                ...state,
+                videogamesByName: action.payload,
+                videogamesRender:action.payload
+            }
+        }
         case FILTER_BY_GENRES:{
             
-            if(action.payload === 'All'){
+            if(action.payload === "All"){
                 return{
                     ...state,
-                    videogamesFiltered: state.videogames  
+                    videogamesRender: state.videogames,
+                    videogamesFiltered: state.videogames
+
                 }
             }
             else{
-                let Filtered = state.videogames.filter(game=> game.localGenres.filter(genre => genre == action.payload ) == action.payload)
+                let Filtered = state.videogames.filter(game=> game.localGenres.filter(genre => genre === action.payload) == action.payload)
                 return{
                     ...state,
-                    videogamesFiltered: Filtered
+                    videogamesRender: Filtered,
+                    videogamesFiltered: Filtered,
                 }
             }
         }
-
-        // case FILTER_BY_ALPHABETICALLY:{
-        //     if(action.payload === 'None'){
-        //         return{
-        //             ...state,
-        //             videogamesFiltered: state.videogames
-        //         }
-        //     }
-        //     if(action.payload === 'Ascending'){
-        //         let a = () => state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.name < b.name){
-        //                 return-1
-        //             }
-        //             if(a.name > b.name){
-        //                 return 1
-        //             }
-        //             return 0
-        //         })
-        //         console.log(a())
-        //         return{
-        //             ...state,
-        //             videogamesFiltered: a()
-        //         }
-        //     }
-        //     if(action.payload === 'Descending'){
-        //         let z =() => state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.name < b.name){
-        //                 return 1
-        //             }
-        //             if(a.name > b.name){
-        //                 return -1
-        //             }
-        //             return 0
-        //         })
-        //         console.log(z())
-        //         return{
-        //             ...state,
-        //             videogamesFiltered:  z()  
-        //         }
-        //     }
-        // }
+        
         case FILTER_BY_ORIGIN:{
             if(action.payload === 'All'){
                 return{
-                    state,
-                    videogamesFiltered: state.videogames
+                    ...state,
+                    videogamesRender: state.videogamesFiltered
                 }
             }
-            if(action.payload === 'Created'){
-                let origin = state.videogames
-                console.log('created')
+
+            else{
+                let Filtered = state.videogamesFiltered.filter(game=> game.createdInDb === (action.payload !== 'Existent'? true:false))
+                console.log(Filtered)
                 return{
-                    state,
-                    videogamesFiltered: origin
+                    ...state,
+                    videogamesRender: Filtered,
                 }
             }
-            if(action.payload === 'Existent'){
-                let origin = state.videogames
-                console.log('existent');
+
+        }
+        case FILTER_BY_ALPHABETICALLY:{
+            if(action.payload === 'None'){
                 return{
-                    state,
-                    videogamesFiltered: origin
+                    ...state,
+                    videogamesRender: state.videogames
+                }
+            }
+            else{
+                
+            let abc = action.payload === 'Ascending'?
+                state.videogamesFiltered.sort((a,b)=> {
+                    if(a.name < b.name){
+                        return-1
+                    }
+                    if(a.name > b.name){
+                        return 1
+                    }
+                    return 0
+                }) :
+                state.videogamesFiltered.sort((a,b)=> {
+                    if(a.name < b.name){
+                        return 1
+                    }
+                    if(a.name > b.name){
+                        return -1
+                    }
+                    return 0
+                })
+                return{
+                    ...state,
+                    videogamesFiltered:  abc  
+                }
+            }
+        }
+        case FILTER_BY_RATING:{
+            if(action.payload === 'None'){
+                return{
+                    ...state,
+                    videogamesRender: state.videogamesFiltered
+                }
+            }
+            else{
+                
+            let rating = action.payload !== 'Top-Rated'?
+                state.videogamesFiltered.sort((a,b)=> {
+                    if(a.rating < b.rating){
+                        return-1
+                    }
+                    if(a.rating > b.rating){
+                        return 1
+                    }
+                    return 0
+                }) :
+                state.videogamesFiltered.sort((a,b)=> {
+                    if(a.rating < b.rating){
+                        return 1
+                    }
+                    if(a.rating > b.rating){
+                        return -1
+                    }
+                    return 0
+                })
+                return{
+                    ...state,
+                    videogamesRender:  rating,  
+                    videogamesFiltered:  rating  
                 }
             }
         }

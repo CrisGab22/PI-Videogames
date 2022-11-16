@@ -3,7 +3,12 @@ import style from '../components.css/searchBar.module.css'
 
 function SearchBar() {
     return(
-        <p className={`${style.searchBar}`}>SearchBar</p>
+        <div>
+            <form >
+                <input type="text"  className={`${style.searchBar}`}/>
+            </form>
+
+        </div>
     )
 }
 

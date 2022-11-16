@@ -39,7 +39,7 @@ routeVideogames.get('/', async(req, res) =>{
 
 
 routeVideogames.post('/', async(req,res) =>{
-    const {name, description, released, rating, img, platforms, genres, createdInDb} = req.body
+    const {name, description, released, rating, img, platforms, genres} = req.body
 
     let newVideogame = await Videogame.create({ //agregamos un videojuego en nuestra base de datos rellenando los siguientes parámetros
         name,

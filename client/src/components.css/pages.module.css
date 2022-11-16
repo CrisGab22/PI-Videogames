@@ -33,7 +33,10 @@
     border-radius: 7px;
 }
 
+.hiddenButton{
+    visibility: hidden;
+}
 .button:hover{
     cursor: pointer;
-    background-color: rgb(204, 255, 238);
+    background-color: rgb(110, 146, 187);
 }
