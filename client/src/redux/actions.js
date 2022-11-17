@@ -26,15 +26,22 @@ export function getAllGenres(){
 }
 
 export function getAllVideogamesName(name){
-    return async function videogamesName(dispatch){
-        try {     
-            const videogamesName = await axios.get(`http://localhost:3001/videogames?name=${name}`)
-            .then(info => info.data)
-            .then(info => dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: info}))
-            return videogamesName
-        } catch (error) {
-            console.log('hemos fallado')
-            return dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: 'No se encontro nada'})
+    if(name.length){
+        return async function videogamesName(dispatch){
+            try {     
+                const videogamesName = await axios.get(`http://localhost:3001/videogames?name=${name}`)
+                .then(info => info.data)
+                .then(info => dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: info}))
+                return videogamesName
+            } catch (error) {
+                return dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: []})
+            }
+        }
+    }
+    else{
+        return {
+            type:GET_VIDEOGAMES_BY_NAME,
+            payload: 'void'
         }
     }
 }

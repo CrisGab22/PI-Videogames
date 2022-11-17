@@ -78,18 +78,15 @@ export default function Videogames () {
             setActualPage(1)
             setRenderControl(`ordenado por rating ${e.target.value}`)
         }  
-        console.log(renderControl)
-        console.log(videogames)
 
 
 return(
     <div> 
-
-        <div className='filters'>
-            <Alphabetically handleFilterByAlphabetically={handleFilterByAlphabetically}/>
+        <div className={style.filters}>
             <Genres genres ={genres} handleFilterByGenre={handleFilterByGenre}/>
             <Origin handleFilterByOrigin={handleFilterByOrigin}/>
             <Rating handleFilterByRating={handleFilterByRating}/>
+            <Alphabetically handleFilterByAlphabetically={handleFilterByAlphabetically}/>
         </div>
         
 

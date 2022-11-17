@@ -1,18 +1,51 @@
 .contenedor{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    padding: 5px 0;
+    background-color:#462868;
     align-items: center;
 }
+.containerImg{
+    display: flex;
+    height: 40px;
+}
+.img{
+    border-radius: 50%;
+    padding: 3px;
+}
 
+.img:hover{
+    background-color: rgba(206, 201, 201, 0.699);
+
+}
+.containerAdd{
+    height: 40px;
+}
+.addGame{
+    height: 100%;
+    padding: -5px;
+    border-radius: 50%;
+}
+.addGame:hover{
+    background-color: rgba(206, 201, 201, 0.699);
+}
 .links{
-    color: cornflowerblue;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: white;
     text-decoration: none;
 }
 
 .linkHome{
-    padding: 0 0 0 3rem ;
+    padding: 0 1rem 0 3rem ;
 }
 
 .linkAbout{
-    padding: 0 3rem 0 0;
+    padding: 0 3rem 0 1rem ;
+}
+
+.img{
+    height: 100%;
 }

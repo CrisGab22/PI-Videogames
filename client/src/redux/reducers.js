@@ -25,10 +25,19 @@ const rootReducer = (state= initialState, action) =>{
             }
         }
         case GET_VIDEOGAMES_BY_NAME:{
-            return{
-                ...state,
-                videogamesByName: action.payload,
-                videogamesRender:action.payload
+            if(action.payload === 'void'){       
+                return{
+                    ...state,
+                    videogamesRender:state.videogames,
+                }
+            }
+            else{
+                return{
+                    ...state,
+                    videogamesRender: action.payload,
+                    videogamesByName: action.payload
+                }
+                
             }
         }
         case FILTER_BY_GENRES:{
@@ -61,7 +70,6 @@ const rootReducer = (state= initialState, action) =>{
 
             else{
                 let Filtered = state.videogamesFiltered.filter(game=> game.createdInDb === (action.payload !== 'Existent'? true:false))
-                console.log(Filtered)
                 return{
                     ...state,
                     videogamesRender: Filtered,

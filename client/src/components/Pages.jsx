@@ -9,10 +9,9 @@ export default function Pages({videogames,current, actualPage}) {
     }
 
 
-
     return(
         <div className={style.container}>
-            <button className={`${style.button} ${(actualPage === 0 || actualPage === 1)? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage-1)}>Prev</button>
+            <button className={`${style.button} ${(actualPage === 0 || actualPage === 1)? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage-1)}>{'<'}</button>
             <ul className={style.containerPages}>
                 {pages.map(page=>{
                     if(page === actualPage){
@@ -24,7 +23,7 @@ export default function Pages({videogames,current, actualPage}) {
                         <li onClick={() => current(page)} className={style.page} key={page}> {page} </li>
                         )
                 })}
-            <button className={`${style.button} ${ (pages[pages.length-1] <= 1 ||actualPage == pages[pages.length-1] )? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage+1)}>Next</button>
+            <button className={`${style.button} ${ (pages[pages.length-1] <= 1 ||actualPage == pages[pages.length-1] || videogames < 1 )? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage+1)}>{">"}</button>
             </ul>
         </div>
     )

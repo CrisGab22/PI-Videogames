@@ -20,18 +20,14 @@ routeVideogames.get('/', async(req, res) =>{
     
     if(name){
         let VideogameName = await Allvideogames.filter(game => game.name.toLowerCase().includes(name.toLowerCase()))
-        if(VideogameName.length){
-            if (VideogameName.length <16) { // verificamos que los juegos que coincidan con el nombre sean menores a 15 para traerlos todos
-                res.status(200).send(VideogameName)
-            }
-            else if (VideogameName.length >15){
-                res.status(200).send(VideogameName.slice(0,15))
-            }
+
+        if (VideogameName.length <16) { // verificamos que los juegos que coincidan con el nombre sean menores a 15 para traerlos todos
+            res.status(200).send(VideogameName)
         }
-        else{
-            res.status(404).send('no se encontró un videojuego que coincida con ese nombre')
+        else if (VideogameName.length >15){
+            res.status(200).send(VideogameName.slice(0,15))
         }
-    }
+        }
     else{
         res.status(200).send(Allvideogames)
     }
