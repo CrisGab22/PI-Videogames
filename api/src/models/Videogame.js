@@ -1,8 +1,7 @@
-const { DataTypes, DATEONLY } = require('sequelize');
+const { DataTypes } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 
-let idGamesCreated= 111111111 // Todos los juegos creados por el usuario tendrán un id mayor a este número
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('videogame', {
@@ -15,7 +14,7 @@ module.exports = (sequelize) => {
     idgame:{  //este parámetro está para los juegos traidos desde la API
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: idGamesCreated++  //incrmentamos el id para el próximo juego
+      defaultValue: 10000000  //incrmentamos el id para el próximo juego
     },
     name: {
       type: DataTypes.STRING,
@@ -25,6 +24,15 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "This game is original of the API, if you wanna kwon about the description of this game in the API you can consult this detail "
+    },
+    description1:{
+      type: DataTypes.STRING,
+    },
+    description2:{
+      type: DataTypes.STRING,
+    },
+    description3:{
+      type: DataTypes.STRING,
     },
     released:{
       type: DataTypes.DATEONLY,

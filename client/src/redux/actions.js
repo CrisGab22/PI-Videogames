@@ -6,6 +6,9 @@ export const FILTER_BY_ALPHABETICALLY = 'FILTER_BY_ALPHABETICALLY'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 export const FILTER_BY_RATING = 'FILTER_BY_RATING'
 export const GET_VIDEOGAMES_BY_NAME = 'GET_VIDEOGAMES_BY_NAME'
+export const GET_DETAILS = 'GET_DETAILS'
+export const RESET_DETAILS = 'RESET_DETAILS'
+export const FILTERS = 'FILTERS'
 
 export function getAllVideogames(){
     return async function videogames(dispatch){
@@ -15,6 +18,26 @@ export function getAllVideogames(){
         return videogames
     } 
 };
+export function postVideogame(info){
+    function partitionDescription() {
+        let description = info.description
+        let slice1 = description.slice(0,255)
+        let slice2 = description.slice(255,510)
+        let slice3 = description.slice(500,765) 
+        let slice4 = description.slice(765,1020) 
+        return info = {...info,
+        description:slice1,
+        description1:slice2,
+        description2:slice3,
+        description3:slice4,
+    }
+    }
+    return async function postVideogame(){
+        partitionDescription(info)
+        const postVideogame = await axios.post('http://localhost:3001/videogames', info)
+        return postVideogame
+    }
+}
 
 export function getAllGenres(){
     return async function genres(dispatch){
@@ -24,6 +47,36 @@ export function getAllGenres(){
         return genres
     }
 }
+
+export function getGameDetails(params){
+    return async function details(dispatch){
+        try {
+            const details = await axios.get(`http://localhost:3001/videogame/${params}`)
+            .then(info => info.data)
+            .then(info => dispatch({type: GET_DETAILS, payload:info}))
+            return details
+        } catch (error) {
+            let errorDb= error.response.data
+            dispatch({type: GET_DETAILS, payload:errorDb})
+        }
+    }
+}
+
+export function resetGameDetails(){
+    return function reset(dispatch){
+        return dispatch ({type: RESET_DETAILS})
+    }
+}
+ 
+// export function getPlatforms(){  //lo use para la sección de plataformas en el form para crear juegos 
+//     return async function platforms(){
+//         const platforms = await axios.get('https://api.rawg.io/api/platforms?key=7b3aaa577ed44d7785e2ef86439964e2')
+//         .then(info =>info.data)
+//         .then(info => info.results.map(el=> {return[el.name,el.id]}))
+//         console.log(platforms)
+//         return platforms
+//     }
+// }
 
 export function getAllVideogamesName(name){
     if(name.length){
@@ -39,12 +92,21 @@ export function getAllVideogamesName(name){
         }
     }
     else{
-        return {
+        return { 
             type:GET_VIDEOGAMES_BY_NAME,
             payload: 'void'
         }
     }
 }
+
+//haz lo del back acá 
+export function filters(data){
+    return{
+        type:FILTERS,
+        payload:data
+    }
+}
+
 
 export function filterByGenre(genre){
     return {

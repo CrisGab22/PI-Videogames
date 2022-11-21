@@ -6,6 +6,7 @@ export default function Genres({genres, handleFilterByGenre}){
 
     return(
         <select name="Genres" onChange={(e) => handleFilterByGenre(e)} >
+            <option value='0' hidden>Genres</option>
             <option value="All" key={0}>All</option>            
             {AllGenres?.map(genre =>{
                 return(

@@ -94,41 +94,50 @@ const videogamesCreator = async() =>{
 
 //funcion que me trae la información específica de un videojuego
 const videogameId = async(id) =>{
-    const gameInfo = await axios.get(`${API_URL_GAMEID}/${id}?key=${API_KEY}`)
-    .then(info => info.data)
-    
-    const filterGameInfo = {
-        name: gameInfo.name,
-        description: gameInfo.description,
-        metacritic: gameInfo.metacritic,
-        released: gameInfo.released,
-        rating: gameInfo.rating,
-        alternative_names: gameInfo.alternative_names,
-        platform: gameInfo.platforms.map(platform => platform.platform.name),
-        developers: gameInfo.developers.map(dev => dev.name),
-        genres: gameInfo.genres.map(genre=> genre.name),
-        stores: gameInfo.stores.map(el => el.store.name)
-
+    try {
+        const gameInfo = await axios.get(`${API_URL_GAMEID}/${id}?key=${API_KEY}`)
+        .then(info => info.data)
+        
+        const filterGameInfo = {
+            img:gameInfo.background_image,
+            name: gameInfo.name,
+            description: gameInfo.description,
+            metacritic: gameInfo.metacritic,
+            released: gameInfo.released,
+            rating: gameInfo.rating,
+            alternative_names: gameInfo.alternative_names,
+            platforms: gameInfo.platforms.map(platform => platform.platform.name),
+            developers: gameInfo.developers.map(dev => dev.name),
+            genres: gameInfo.genres.map(genre=> genre.name),
+            stores: gameInfo.stores.map(el => el.store.name),
+            createdInDb: false
+        }
+        return(filterGameInfo)
+    } catch (error) {
+        return { error: 'Lo sentimos el ID de este juego no es válido' }
     }
-    return(filterGameInfo)
 }
 
 //funcion que me busca los juegos creados en mi DB
 const videogameDbId = async (id) =>{
-    const gameInfo = Videogame.findAll({
-        attributes:['name', 'description', 'released', 'rating', 'img', 'platforms'],
-        where:{
-            "idgame": id 
-        },
-        include:{
-            model: Genre,
-            attributes: ['name'], // me trae solo el atributo nombre de la tabla Genre
-            through: { 
-                attributes: [], // con esto solo me trae información de los atributos de la tabla (ignorando la información de la tabla intermedia)
+    try {
+        const gameInfo =await Videogame.findAll({
+            where:{
+                "idgame": id 
             },
-        }
-    })
-    return gameInfo
+            include:{
+                model: Genre,
+                attributes: ['name'], // me trae solo el atributo nombre de la tabla Genre
+                through: { 
+                    attributes: [], // con esto solo me trae información de los atributos de la tabla (ignorando la información de la tabla intermedia)
+                },
+            }
+        })
+        if(!gameInfo[0]?.name) throw new Error('Lo sentimos este juego no está disponible en nuestra base de datos')
+        return gameInfo
+    } catch (error) {
+        return {error: error.message}
+    }
 }
 
 module.exports= {

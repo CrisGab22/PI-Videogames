@@ -12,11 +12,11 @@ function Navbar() {
                     <img src="https://www.svgrepo.com/show/35381/white-home.svg" alt="home" className={style.img}/>
                 </div>
             </Link>
-                <SearchBar />
+                <SearchBar  />
             <Link to="/home/create" className={`${style.linkAbout} ${style.links}`}>
                     <label>Create</label>
                     <div className={style.containerAdd}>
-                        <img src="https://cdn.iconscout.com/icon/free/png-256/add-1437-439413.png" className={style.addGame}/>
+                        <img src="https://cdn.iconscout.com/icon/free/png-256/add-1437-439413.png" alt='create' className={style.addGame}/>
                     </div>
             </Link>
         </div>

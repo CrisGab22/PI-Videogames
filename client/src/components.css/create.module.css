@@ -1,0 +1,20 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center ;
+    color: beige;
+    height: 100vh;
+    background: linear-gradient(180deg, rgba(1,5,16,1) 0%, rgba(1,10,43,1) 38%, rgba(16,18,93,1) 100%);
+}
+.button{
+    display: flex;
+}
+.buttonOff{
+    visibility: hidden;
+}
+.buttonOn{
+}
+.input{
+    margin: 10px;
+}

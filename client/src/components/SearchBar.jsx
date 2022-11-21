@@ -8,9 +8,10 @@ function SearchBar() {
     const dispatch = useDispatch()
 
     function handleSearch(e){
+        dispatch(getAllVideogamesName(e.target.value))
         e.preventDefault()
         setSearched(e.target.value)
-        dispatch(getAllVideogamesName(e.target.value))
+        // handler(e.target.value)
     }
     const[searched, setSearched] = useState('')
 

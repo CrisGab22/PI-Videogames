@@ -33,18 +33,23 @@ routeVideogames.get('/', async(req, res) =>{
     }
 });
 
-
+let idGamesCreated= 111111111 // Todos los juegos creados por el usuario tendrán un id mayor a este número
 routeVideogames.post('/', async(req,res) =>{
-    const {name, description, released, rating, img, platforms, genres} = req.body
+    const {name, description, description1, description2, description3, released, rating, img, platforms, genres} = req.body
+    console.log(req.body)
 
     let newVideogame = await Videogame.create({ //agregamos un videojuego en nuestra base de datos rellenando los siguientes parámetros
+        idgame: idGamesCreated++,
         name,
         description,
+        description1,
+        description2,
+        description3,
         released,
         rating,
         img,
-        platforms,
         localGenres: genres,
+        platforms,
         createdInDb : true,
     });
 
@@ -55,9 +60,8 @@ routeVideogames.post('/', async(req,res) =>{
     });
 
     newVideogame.addGenre(genreDb)
-    res.send('Su videojuego se ha agregado!!!')
+    res.status(200).send({res:'Su videojuego ha sido creado'})
 })
 
 
 module.exports = routeVideogames;
-
