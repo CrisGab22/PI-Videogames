@@ -31,6 +31,7 @@ export default function Videogames () {
         const [actualPage, setActualPage] = useState(1)
         // eslint-disable-next-line
         const [renderControl, setRenderControl] = useState('')
+        // eslint-disable-next-line
         const[videogamesPerPage, setVideogamesPerPage] = useState(15)
     //función recorredora del paginado
         const current = (numberpage)=>{
@@ -55,32 +56,36 @@ export default function Videogames () {
         // }
         
 return(
-    <div> 
+    <div className={style.body}> 
         <Navbar 
         // handler={handler}
         />
-        <Filters
-        rerender={rerender}
-        // search={search}
-        />
-        
+        <div className={style.content}>
+            <div className={style.filters}>
+                <Filters
+                rerender={rerender}
+                // search={search}
+                />
+            </div>
+            
 
-            <Pages  current ={current} actualPage = {actualPage} videogames={videogames.length}/>
-        <div className={style.Containervideogames}>
-            {/* {videogames.length? */}
-            {videogamesSliced &&  videogamesSliced.map(game => {
-                return <Link to={`/home/videogame/${game.idgame}`} key={game.id}>
-                    <Videogame
-                    videogames= {videogames}
-                    key= {game.id}
-                    name={game.name}
-                    localGenres ={game.localGenres}
-                    img={game.img}
-                    platforms= {game.platforms}
-                    />
-                </Link>
-            })}
-            {/* <img src='https://i.pinimg.com/originals/91/91/85/919185a188c5cc25655fadfbc9a4a2b4.gif' alt='cargando'></img>} */}
+                <Pages  current ={current} actualPage = {actualPage} videogames={videogames.length}/>
+            <div className={style.Containervideogames}>
+                {/* {videogames.length? */}
+                {videogamesSliced &&  videogamesSliced.map(game => {
+                    return <Link to={`/home/videogame/${game.idgame}`} key={game.id}>
+                        <Videogame
+                        videogames= {videogames}
+                        key= {game.id}
+                        name={game.name}
+                        localGenres ={game.localGenres}
+                        img={game.img}
+                        platforms= {game.platforms}
+                        />
+                    </Link>
+                })}
+                {/* <img src='https://i.pinimg.com/originals/91/91/85/919185a188c5cc25655fadfbc9a4a2b4.gif' alt='cargando'></img>} */}
+            </div>
         </div>
     </div>
 )

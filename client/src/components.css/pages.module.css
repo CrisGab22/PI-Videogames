@@ -31,6 +31,8 @@
     margin: 0 10px;
     border: none;
     border-radius: 7px;
+    background-color: transparent;
+    color: rgb(5, 50, 133);
 }
 
 .hiddenButton{
@@ -38,5 +40,5 @@
 }
 .button:hover{
     cursor: pointer;
-    background-color: rgb(110, 146, 187);
+    background-color: rgba(123, 162, 206, 0.281);
 }

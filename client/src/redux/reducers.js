@@ -1,4 +1,4 @@
-import {GET_VIDEOGAMES_BY_NAME, GET_ALL_VIDEOGAMES, GET_GENRES, FILTER_BY_GENRES,FILTER_BY_RATING, FILTER_BY_ALPHABETICALLY, FILTER_BY_ORIGIN, GET_DETAILS, RESET_DETAILS, FILTERS } from "./actions";
+import {GET_VIDEOGAMES_BY_NAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_DETAILS, RESET_DETAILS, FILTERS } from "./actions";
 const initialState={
     details:[],
     genres: [],
@@ -59,6 +59,7 @@ const rootReducer = (state= initialState, action) =>{
                 
             }
         }
+        // eslint-disable-next-line
         case FILTERS:{
             console.log(action.payload);
             state={
@@ -156,118 +157,6 @@ const rootReducer = (state= initialState, action) =>{
             return {...state,
                 videogamesRender:state.videogamesFiltered
             }
-    
-
-        
-
-
-        // case FILTER_BY_GENRES:{
-            
-        //     if(action.payload === "All"){
-        //         return{
-        //             ...state,
-        //             videogamesRender: state.videogamesFiltered,
-
-        //         }
-        //     }
-        //     else{
-        //         // eslint-disable-next-line
-        //         let Filtered = state.videogames.filter(game=> game.localGenres.filter(genre => genre === action.payload) == action.payload)
-        //         return{
-        //             ...state,
-        //             videogamesRender: Filtered,
-        //             videogamesFiltered: Filtered,
-        //         }
-        //     }
-        // }
-        
-        // case FILTER_BY_ORIGIN:{
-        //     if(action.payload === 'All'){
-        //         return{
-        //             ...state,
-        //             videogamesRender: state.videogamesFiltered
-        //         }
-        //     }
-
-        //     else{
-        //         let Filtered = state.videogamesFiltered.filter(game=> game.createdInDb === (action.payload !== 'Existent'? true:false))
-        //         return{
-        //             ...state,
-        //             videogamesRender: Filtered,
-        //             videogamesFiltered:Filtered,
-        //         }
-        //     }
-
-        // }
-        // case FILTER_BY_ALPHABETICALLY:{
-        //     if(action.payload === 'None'){
-        //         return{
-        //             ...state,
-        //             videogamesRender: state.videogamesFiltered
-        //         }
-        //     }
-        //     else{
-                
-        //     let abc = action.payload === 'Ascending'?
-        //         state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.name < b.name){
-        //                 return-1
-        //             }
-        //             if(a.name > b.name){
-        //                 return 1
-        //             }
-        //             return 0
-        //         }) :
-        //         state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.name < b.name){
-        //                 return 1
-        //             }
-        //             if(a.name > b.name){
-        //                 return -1
-        //             }
-        //             return 0
-        //         })
-        //         return{
-        //             ...state,
-        //             videogamesFiltered:  abc  
-        //         }
-        //     }
-        // }
-        // case FILTER_BY_RATING:{
-        //     if(action.payload === 'None'){
-        //         return{
-        //             ...state,
-        //             videogamesRender: state.videogamesFiltered
-        //         }
-        //     }
-        //     else{
-                
-        //     let rating = action.payload !== 'Top-Rated'?
-        //         state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.rating < b.rating){
-        //                 return-1
-        //             }
-        //             if(a.rating > b.rating){
-        //                 return 1
-        //             }
-        //             return 0
-        //         }) :
-        //         state.videogamesFiltered.sort((a,b)=> {
-        //             if(a.rating < b.rating){
-        //                 return 1
-        //             }
-        //             if(a.rating > b.rating){
-        //                 return -1
-        //             }
-        //             return 0
-        //         })
-        //         return{
-        //             ...state,
-        //             videogamesRender:  rating,  
-        //             videogamesFiltered:  rating  
-        //         }
-        //     }
-        // }
         default:{
             return {...state}
         }

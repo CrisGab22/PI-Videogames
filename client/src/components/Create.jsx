@@ -4,6 +4,7 @@ import {useSelector,useDispatch} from 'react-redux'
 import { getAllGenres, postVideogame} from "../redux/actions";
 import { useEffect } from "react";
 import { useState } from "react";
+import {Link} from 'react-router-dom'
 
 function Create() {
 
@@ -13,6 +14,8 @@ function Create() {
     },[dispatch])
 
     let genres= useSelector(state => state.genres) 
+
+    let [success,setSuccess] = useState(false)
 
     let [form, setForm]=useState({
         name:'',
@@ -25,14 +28,17 @@ function Create() {
     })
 
     let [error, setError] = useState({
-        name: ' ',
+        name: '',
         description: ' ',
-        released:' ',
-        rating:' ',
-        img:' ',
         platforms: ' ',
         genres:' ',
+        released:' ',
     })
+    let [warnings, setWarnings] = useState({
+        rating:'',
+        img:'',
+    }    
+    )
 
     const controller ={
         // eslint-disable-next-line 
@@ -73,8 +79,8 @@ function Create() {
         setForm({...form,description: e.target.value})
         controller.description.test(e.target.value)?setError({...error, description:'Existe un carácter inválido dentro de este campo'}): setError({...error, description: ''}) 
             
-        if(e.target.value.length<30 || e.target.value.length>1200){
-            setError({...error, description:'Debe tener una longitud de entre 30 y 1200 caracteres'})
+        if(e.target.value.length<30 || e.target.value.length>1020){
+            setError({...error, description:'Debe tener una longitud de entre 30 y 1000 caracteres'})
         }
 }
     
@@ -88,11 +94,12 @@ function Create() {
         e.target.value.length>4? 
         setForm({...form, rating: e.target.value.slice(0,4)}):
         setForm({...form, rating: e.target.value})
-        controller.rating(e.target.value)? setError({...error, rating:''}): setError({...error, rating: 'El rating debe ser un puntaje de entre 5 y 0'})
+        controller.rating(e.target.value)? setWarnings({...warnings, rating:''}): setWarnings({...warnings, rating: 'El rating debe ser un puntaje de entre 5 y 0'})
     }
     function handleImg(e){
         setForm({...form, img: e.target.value})
-        controller.img.test(e.target.value)? setError({...error, img:''}): setError({...error, img: 'la Url no es válida'})
+        controller.img.test(e.target.value)? setWarnings({...warnings, img:''}): setWarnings({...warnings, img: 'la Url no es válida'})
+        if(e.target.value.length===0) setWarnings({...warnings,img:''})
     }
 
     function handlePlatforms(e){
@@ -137,79 +144,129 @@ function Create() {
         })
     }
 
+    function handlerSuccess(){
+        dispatch(postVideogame(form))
+        setSuccess(true)
+    }
     return(
-        <div className={style.container}>
-        <h2 className={style.title}>Crea tu propio juego</h2>
-        <form onSubmit={(e)=>handleSubmit(e)}>
-            <label>Nombre del juego*</label>
-            <input  type="text" className={style.input} onChange={(e) => handleName(e)} value={form.name}/> <br />
-            <label className={style.error}>{error.name}</label><br/>
+        success===false?
+        <div className={style.body}>
+            <div className={style.glass}>
+                <div className={style.container}>
+                    <div className={style.form}>
+                        <h2 className={style.title}>Crear Juego</h2>
+                        <form onSubmit={(e)=>handleSubmit(e)}>
+                            <label className={style.name}>Nombre</label>
+                            <input  type="text" className={style.inputText} placeholder={'Inserte el nombre de su juego*'} onChange={(e) => handleName(e)} value={form.name}/> 
+                            <label className={style.error}>{error.name}</label><br/>
 
-            <label>Descripción*</label> 
-            <textarea className={style.input} onChange={(e) => handleDescription(e)} value={form.description}/> <br />
-            <label className={style.error}>{error.description}</label><br/>
+                            <label className={style.name} >Descripción</label> 
+                            <textarea className={style.inputTextArea} placeholder={'Inserte la descripción de su juego*'} onChange={(e) => handleDescription(e)} value={form.description}/> 
+                            <label className={style.error}>{error.description}</label><br/>
+
+                                <div className={`${style.containerInput} ${style.containerInputRating} `}>
+                                    <label className={style.released}>Fecha de lanzamiento*</label>
+                                    <input type="date" className={style.inputReleased} onChange={(e) => handleReleasd(e)} value={form.released}/> <br />
+                                    <label className={style.error}>{error.released}</label><br/>
+                                </div>
+                                <div className={`${style.containerInput} ${style.containerInputRating} `}>
+                                    <label className={style.rating}>Rating</label>
+                                    <input placeholder="0.0" type="number" max={5} min={0} step={0.1}className={style.inputRating} onChange={(e) => handleRating(e)} value={form.rating}/> <br />
+                                    <label className={style.errorRating}>{warnings.rating}</label><br/>
+                                </div>
 
 
-            <label>Fecha de lanzamiento*</label>
-            <input type="date" className={style.input} onChange={(e) => handleReleasd(e)} value={form.released}/> <br />
-            <label className={style.error}>{error.released}</label><br/>
+                                <label className={style.name}>Imagen URL</label>
+                                <input type="text" className={style.inputText} placeholder={'Ingrese la URL de su imagen'}  onChange={(e) => handleImg(e)} value={form.img}/> 
+                                <label className={style.error}>{warnings.img}</label><br/>
 
+                                <div>
+                                    <div className={style.containerInput}>
+                                        <label className={style.rating}>Plataformas*</label>
+                                        <select className={style.inputPlatforms} onChange={(e) =>{handlePlatforms(e) }} value={form.platforms}>
+                                            <option value={''}  hidden>Elige una plataforma</option>
+                                            {platforms?.map((platform) =>{
+                                                return(
+                                                    <option value={platform} key={platform[1]}>{platform[0]}</option>
+                                                    )
+                                                })}
+                                        </select>
+                                    </div>
+                                    <div className={style.containerChilds}>
+                                    {form.platforms !== '' && form.platforms.length>=1?
+                                        form.platforms.map(el=> <div key={el+'div'} className={style.separator }>
+                                            <div className={style.Childs}>
+                                                <label className={style.textChilds} key={el}>{el[0]}</label>
+                                                <button className={style.buttonChilds} onClick={() => handlePlatformsList(el[0])} key={el+'button'}>x</button>
+                                            </div>
+                                        </div>)
+                                
+                                        :null
+                                    }
+                                    </div>
+                                    <label className={style.error}>{error.platforms}</label><br/>
+                                </div>
 
-            <label>Rating</label>
-            <input type="number" max={5} min={0} step={0.1}className={style.input} onChange={(e) => handleRating(e)} value={form.rating}/> <br />
-            <label className={style.error}>{error.rating}</label><br/>
+                                <div>
+                                    <div className={style.containerInput}>
 
+                                    <label className={style.rating}>Géneros*</label>
+                                        <select className={style.inputPlatforms} onChange={(e) =>{handleGenres(e) }} value={form.genres}>
+                                            <option hidden>Elige un género</option>
+                                            {genres?.map(genre =>{
+                                                return(
+                                                    <option value={genre.name} key={genre.id}>{genre.name}</option>
+                                                    )
+                                                })}
+                                        </select>
+                                    </div>
+                                    <div className={style.containerChilds}>
 
-            <label>URL imagen</label>
-            <input type="text" className={style.input}  onChange={(e) => handleImg(e)} value={form.img}/> <br />
-            <label className={style.error}>{error.img}</label><br/>
-
-            <label>Plataformas*</label>
-            <select className={style.input} onChange={(e) =>{handlePlatforms(e) }} value={form.platforms}>
-                <option value={''} hidden>Elige una plataforma</option>
-                {platforms?.map((platform) =>{
-                    return(
-                        <option value={platform} key={platform[1]}>{platform[0]}</option>
-                    )
-                })}
-            </select>
-            {form.platforms !== '' && form.platforms.length>=1?
-                form.platforms.map(el=> <div key={el+'div'}>
-                    <label key={el}>{el[0]}</label>
-                    <button onClick={() => handlePlatformsList(el[0])} key={el+'button'}>X</button>
-                </div>)
-                
-                :null
-            }
-            <label className={style.error}>{error.platforms}</label><br/>
-
-            <label>Géneros*</label>
-            <select className={style.input} onChange={(e) =>{handleGenres(e) }} value={form.genres}>
-                <option hidden>Elige un género</option>
-                {genres?.map(genre =>{
-                    return(
-                        <option value={genre.name} key={genre.id}>{genre.name}</option>
-                    )
-                })}
-            </select>
-            {form.genres !== '' && form.genres.length>=1?
-                form.genres.map(el=> <div key={el+'div'}>
-                    <label key={el}>{el}</label>
-                    <button onClick={() => handleGenresList(el)} key={el+'button'}>X</button>
-                </div>)
-                
-                :null
-            }
-            <label className={style.error}>{error.genres}</label><br/>
-            
-            <button type="submit" className={`${style.button}
-            ${Object.values(error).reduce((acumulador,valorActual)=> acumulador+valorActual.length,0)===0? style.buttonOn: style.buttonOff}`
-            }
-            onClick={() => dispatch(postVideogame(form))}
-            >Disponible</button>
-        </form>
+                                    {form.genres !== '' && form.genres.length>=1?
+                                        form.genres.map(el=> <div key={el+'div'} className={style.separator}>
+                                            <div className={style.Childs}>
+                                                <label className={style.textChilds} key={el}>{el}</label>
+                                                <button className={style.buttonChilds} onClick={() => handleGenresList(el)} key={el+'button'}>x</button>
+                                            </div>
+                                        </div>)
+                                        
+                                        :null
+                                    }
+                                    </div >
+                                    <label className={style.error}>{error.genres}</label>
+                                </div>
+                            
+                            {Object.values(error).reduce((acumulador,valorActual)=> acumulador+valorActual.length,0)===0&& Object.values(warnings).reduce((acumulador,valorActual)=> acumulador+valorActual.length,0)===0?
+                            <div className={style.containerButton}>
+                            <button type="submit" className={style.button}
+                            onClick={() => handlerSuccess()}
+                            >Añadir Juego</button>
+                            </div>
+                            
+                            :    <div className={style.containerButton}>
+                            <button  className={style.buttonDisable}
+                            disabled
+                            >Añadir Juego</button>
+                            </div>
+                        }
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+    : 
+    <div className={style.body}>
+        <div className={style.glass}>
+            <div className={style.containerSuccess}>
+                <h2 className={style.textSuccess}>Su juego ha sido agregado</h2>
+                <div className={style.return}>
+                    <Link to={'/home'}>
+                        <button className={style.backBtn}>Volver</button>
+                    </Link>
+                </div>
+            </div>
+        </div>
+    </div>
     )
 }
-
 export default Create;

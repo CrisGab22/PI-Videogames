@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.bgColor{
+    margin: 1px;
+    background: rgba(95, 158, 160, 0.705);
+    border: solid  1px;
+    border-radius: 6px;
+}
+
+.bgColor:hover{
+    background: rgba(111, 179, 182, 0.705)
+}
+
+.filter{
+    padding: 2px;
+    border: none;
+    background-color: transparent;
+}

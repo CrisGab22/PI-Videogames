@@ -1,20 +1,250 @@
-.container{
-    display: flex;
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+.body{
     flex-direction: column;
     justify-content: center;
     align-items: center ;
-    color: beige;
     height: 100vh;
-    background: linear-gradient(180deg, rgba(1,5,16,1) 0%, rgba(1,10,43,1) 38%, rgba(16,18,93,1) 100%);
+    background: url('https://i.pinimg.com/originals/20/54/97/205497ee52942b78ef8b2b46e65ae78c.gif') no-repeat center;
+    background-size: 100vw 100vh  ;
+    background-attachment: fixed;
+    /* background: linear-gradient(180deg, rgba(1,5,16,1) 0%, rgba(1,10,43,1) 38%, rgba(16,18,93,1) 100%); */
 }
-.button{
+
+
+.container{
+    transform: scale(1.2);
+    padding:0 10px ;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
+    width: 500px;
+}
+
+.glass{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-backdrop-filter: blur(10px);
+}
+.containerSuccess{
+    display: flex;
+    flex-direction: column;
+    padding:0 10px ;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
+    width: 400px;
+    height: 140px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 250px ;
+}
+.return{
+    display: flex;
+    justify-content: center;
+}
+.textSuccess{
+    font-size: 25px;
+    font-family: 'Dosis',candara;
+}
+.backBtn{
+    margin-top: 10px;
+    font-family: 'Dosis',candara;
+    font-weight: 700;
+    padding: 12px 20px;
+    border: black solid 1px;
+    border-radius: 5px;
+    background: rgb(62, 250, 187);
+}
+
+.backBtn:hover{
+    background: rgb(62, 250, 187);
+}
+.form{
+    
+    padding: 10px 10px 15px 0 ;
+}
+.title{
+    font-weight: 200;
+    font-size: 40px;
+    font-family:'Dosis',candara;
+    display: flex;
+    padding: 10px 0 0px 0;
+    justify-content: center ;
+    text-align: center;
+}
+.error{
+    font-size: 12px;
+    font-family: monospace;
+    color: rgb(253, 104, 104);
+}
+.errorRating{
+    padding-left: 5px;
+    font-size: 12px;
+    font-family: monospace;
+    color: rgb(253, 104, 104);
+}
+.name{
+    display: flex;
+    width: fit-content;
+    padding: 0 2px;
+    font-size: 14px;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(238,238,238,1) 100%);
+    transform: translate(10px,8px);
+    font-family: monospace;
+}
+.inputText{
+    padding: 3px 2px 3px 5px;
+    font-family: candara;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    width: 100%;
+    outline: solid 1px ;
+    height: 30px;
+}
+
+.inputTextArea{
+    font-family: candara;
+    padding: 8px 2px 3px 5px;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    width: 100%;
+    outline: solid 1px ;
+    height: 200px;
+    resize: none;
+}
+.containerInput{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.containerInputRating{
+    padding: 5px 0 0 4px;
+}
+.released{
+    font-family: monospace;
+    display: flex;
+    width: fit-content;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+.inputReleased{
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 5px ;  
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    outline: solid 1px ;
+}
+
+.rating{
+    font-family: monospace;
+    display: flex;
+    width: fit-content;
+    padding: 0 2px;
+    font-size: 14px;
+}
+
+.inputRating{
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 5px ;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    outline: solid 1px ;
+}
+.inputUrl{
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 5px ;
+    background-color: transparent;
+    border: none;
+    border-radius: 7px;
+    display: flex;
+    outline: solid 1px ;
+    width: 45px;
+}
+
+.containerPlatforms{
     display: flex;
 }
-.buttonOff{
-    visibility: hidden;
+
+.inputPlatforms{    
+    border: none;
+    margin-left: 10px;
+    padding: 3px  ;
+    border-radius: 7px;
+    display: flex;
+    outline: solid 1px ;
+    font-family: candara;
 }
-.buttonOn{
+.containerChilds{
+    display: flex;
+    flex-wrap: wrap;
 }
-.input{
-    margin: 10px;
+.Childs{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 2px ;
+    border-radius: 30px;
+    background-color: rgb(223, 217, 217);
+    font-family: cambria;
+    font-size: 14px;
 }
+.separator{
+    padding: 8px 2px 1px 2px ;
+}
+.textChilds{
+    display: flex;
+    text-align: center;
+    padding: 0 4px 0 2px;
+}
+.buttonChilds{
+    text-align: center;
+    padding: 5px 9px;
+    border: none;
+    border-radius: 45%;
+}
+.buttonChilds:hover{
+    background-color: rgba(255, 16, 16, 0.877);
+    color: aliceblue;
+}
+.containerButton{
+    display: flex; 
+    margin-top: 7px; 
+    justify-content: flex-end;
+}
+.button{
+    
+    font-family: monospace;
+    padding: 15px 20px;
+    border: black solid 1px;
+    border-radius: 5px;
+    background: rgb(0, 247, 164);
+}
+.buttonDisable{
+    font-family: monospace;
+    padding: 15px 20px;
+    border: rgba(0, 0, 0, 0.301) solid 1px;
+    border-radius: 5px;
+    background: rgb(181, 247, 225);
+    opacity: 60%;
+}
+.button:hover{
+    cursor: pointer;
+    background: rgb(37, 255, 182);
+    opacity: 90%;
+}
+
+

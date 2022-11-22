@@ -3,6 +3,7 @@ import {getGameDetails, resetGameDetails} from '../redux/actions'
 import { useParams } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from "react";
+import style from '../components.css/details.module.css'
 
 function VideogameDetails() {
     let details = useSelector(state=> state.details)
@@ -12,12 +13,14 @@ function VideogameDetails() {
     useEffect(() =>{
         dispatch(getGameDetails(params.id));
         return () => dispatch(resetGameDetails())
+    // eslint-disable-next-line
     },[dispatch])
     
     return(
-        details?.name && details?.createdInDb===false?
-            <div>
-                <div className={`name`}>
+    <div className={style.body}>
+        {details?.name && details?.createdInDb===false?
+            <div className={style.containerPrincipal}>
+                <div className={`${style.name}`}>
                     <h2>{details.name}</h2>
                 </div>
 
@@ -26,14 +29,16 @@ function VideogameDetails() {
                     <div className={'alternative_names'}>
                         {details.alternative_names.map(name =>{
                             return <label className={`altName`} key={name}>{name}</label>}
-                        )}
+                            )}
                     </div>
                     : null
                 }
-                {/* <img src={`${details.img}`} alt="" /> */}
+                
+                <img className={style.img} src={`${details.img}`} alt="" />
+                <label className={style.descriptionTitle}>Description:</label>
                 {details.description[0] === '<'?
-                    <div dangerouslySetInnerHTML={{__html: details.description}} />
-                    :<></>
+                    <div className={style.description} dangerouslySetInnerHTML={{__html: details.description}} />
+                    :<span className={style.description}>{details.description}</span>
                 }
                 {details.developers[0]?
                     <div>
@@ -72,7 +77,7 @@ function VideogameDetails() {
                         <h4>Stores:</h4>
                         {details.stores.map(store =>{
                             return <label className={`store`} key={store}>{store}</label>}
-                        )}    
+                            )}    
                     </div>:
                     <></>
                 }
@@ -104,7 +109,8 @@ function VideogameDetails() {
         details?.error?
             <h2>{details.error}</h2>
         :
-        <img src="https://tradinglatam.com/wp-content/uploads/2019/04/loading-gif-png-4.gif" alt="cargando" />
+        <img src="https://tradinglatam.com/wp-content/uploads/2019/04/loading-gif-png-4.gif" alt="cargando" />}
+    </div>
         )
 
         

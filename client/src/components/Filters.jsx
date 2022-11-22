@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Alphabetically from "./filters/Alphabetically";
 import Genres from "./filters/Genres";
 import Origin from "./filters/Origin";
 import Rating from "./filters/Rating";
-
+import style from '../components.css/filters.module.css' 
 
 export default function Filters({rerender}){
     let genres= useSelector(state => state.genres)
 
-// useEffect(()=>{
-//     handleFilterBySearch(search)
-// },[search])
+
 
     const [filters,setFilters] = useState({
         genres:'All',
         origin:'All',
         alphabetically:'none',
         rating:'none',
-        // search: ''
     }) 
-    // function handleFilterBySearch(search){
-    //     setFilters({
-    //         ...filters,
-    //         search: search
-    //     })
-    //     rerender({ ...filters,search: search})
-    // }
+   
 
     function handleFilterByGenre(e){
         e.preventDefault()
@@ -66,7 +57,7 @@ export default function Filters({rerender}){
 
 
     return(
-        <div className="filters">
+        <div className={style.container}>
             <Genres genres ={genres} handleFilterByGenre={handleFilterByGenre}/>
             <Origin handleFilterByOrigin={handleFilterByOrigin}/>
             <Rating handleFilterByRating={handleFilterByRating}/>

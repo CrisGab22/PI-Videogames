@@ -1,3 +1,12 @@
+body{
+    height: max-content;
+}
+#root{
+    height: max-content;
+}
+.App{
+    height: 100vh;
+}
 .Containervideogames{
     display: flex;
     flex-wrap: wrap;
@@ -5,9 +14,21 @@
     align-content: center;
 }
 
-.filters{
+.filters{   
     display: flex;
     padding: 20px 2px;
     flex-wrap: wrap;
     justify-content: center;
+}
+.body{
+    background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/04/Abstract-minimalist-wallpaper-HD-desktop-download.png');
+    background: rgba(0, 0, 0, 0.158);
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.Containervideogames{
 }

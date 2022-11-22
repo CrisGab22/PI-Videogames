@@ -1,0 +1,37 @@
+.body{
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.containerPrincipal{
+    border-radius: 40px;
+    margin: 10px;
+    padding: 15px;
+    width: 800px;
+    flex-direction: column;
+    display: flex;
+    background-color: aqua;
+}
+.name{
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+.containerImgxDescription{
+    display: flex;
+}
+.img{
+    width: 100%;
+    border-radius: 4px;
+}
+.containerDescription{
+    padding: 0 10px;
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+}
+.descriptionTitle{
+    font-weight: 900;
+    justify-content: center;
+}
