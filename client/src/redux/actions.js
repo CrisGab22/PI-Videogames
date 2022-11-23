@@ -68,15 +68,15 @@ export function resetGameDetails(){
     }
 }
  
-// export function getPlatforms(){  //lo use para la sección de plataformas en el form para crear juegos 
-//     return async function platforms(){
-//         const platforms = await axios.get('https://api.rawg.io/api/platforms?key=7b3aaa577ed44d7785e2ef86439964e2')
-//         .then(info =>info.data)
-//         .then(info => info.results.map(el=> {return[el.name,el.id]}))
-//         console.log(platforms)
-//         return platforms
-//     }
-// }
+export function getPlatforms(){  //lo use para la sección de plataformas en el form para crear juegos 
+    return async function platforms(){
+        const platforms = await axios.get('https://api.rawg.io/api/platforms?key={TuApiKey}')
+        .then(info =>info.data)
+        .then(info => info.results.map(el=> {return[el.name,el.id]}))
+        console.log(platforms)
+        return platforms
+    }
+}
 
 export function getAllVideogamesName(name){
     if(name.length){
