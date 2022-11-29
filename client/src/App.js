@@ -1,8 +1,10 @@
 import Home from './components/Home.jsx'
 import Detail from './components/Detail.jsx'
+import Update from './components/Update.jsx'
 import Create from './components/Create.jsx'
 import {Route} from 'react-router-dom'
 import Landing from './components/Landing.jsx';
+import Delete from './components/Delete.jsx'
 
 
 function App() {
@@ -16,6 +18,11 @@ function App() {
       <Route exact path="/home/videogame/:id" render={() => <Detail /> }/>
 
       <Route exact path="/home/create" render={() => <Create/>}/>
+
+      <Route exact path="/home/update/:id" render={() => <Update/>}/>
+
+      <Route exact path={"/home/delete/:id"} render={() => <Delete/>}/>
+
     </div>
   );
 }

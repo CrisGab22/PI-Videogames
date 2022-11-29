@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     background: url('https://media.tenor.com/zMdZBjJ7gPkAAAAd/aesthetic-wallpaper.gif');
-    background-size: 100vw 100vh;
+    background-size: 100% 100%;
     background-attachment: fixed;
 }
 .glass{
@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    -webkit-backdrop-filter: blur(10px);
+    min-height: 100vh;
 }
 .containerPrincipal{
     font-family: Dosis, candara;
@@ -30,6 +30,7 @@
     background-color: rgb(255, 255, 255);
 }
 .back{
+    margin-top: 2px;
     height: 40px;
     cursor: pointer;
     border-radius: 20px;
@@ -41,7 +42,7 @@
 .name{
     display: flex;
     justify-content: center;
-    padding: 5px;
+    padding: 10px 0 10px 50px;
 }
 .descriptionTitle{
     padding: 5px 0;
@@ -85,6 +86,7 @@
 .ratingXReleased{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .rating{
     align-items: center;
@@ -100,12 +102,13 @@
     display: flex;
     border-radius: 20px;
     margin: 1px 2px;
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(247, 244, 244);
     padding: 5px;
 }
 .developer{
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     padding-right: 30px;
 }
 .fakeSpace{
@@ -143,3 +146,28 @@
 .loading{
     height: 100px;
 }
+.containerButtons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.button{
+    font-family: monospace;
+    padding: 15px 20px;
+    border: black solid 1px;
+    border-radius: 5px;
+    background: rgb(0, 247, 164);
+}
+.button:hover{
+    cursor: pointer;
+    background: rgb(37, 255, 182);
+    opacity: 90%;
+}
+.buttonRed{
+    background-color: rgb(253, 86, 86);
+}
+
+.buttonRed:hover{
+    background-color: rgb(253, 144, 144);
+}
+

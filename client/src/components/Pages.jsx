@@ -8,8 +8,8 @@ export default function Pages({videogames,current, actualPage}) {
         pages.push(i)
     }
 
-
     return(
+        videogames>15?
         <div className={style.container}>
             <button className={`${style.button} ${(actualPage === 0 || actualPage === 1)? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage-1)}>{'<'}</button>
             <ul className={style.containerPages}>
@@ -26,6 +26,9 @@ export default function Pages({videogames,current, actualPage}) {
             <button className={`${style.button} ${ (pages[pages.length-1] <= 1 ||actualPage === pages[pages.length-1] || videogames < 1 )? style.hiddenButton: style.buttonHover}`} onClick={() =>current(actualPage+1)}>{">"}</button>
             </ul>
         </div>
+        :
+        <>
+        </>
     )
         
 }

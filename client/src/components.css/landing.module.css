@@ -7,32 +7,49 @@
 }
 
 .body{
-    background: url('https://images2.alphacoders.com/127/1274455.png') no-repeat center center fixed;
+    background: url('https://c4.wallpaperflare.com/wallpaper/804/608/879/pixels-video-games-pixel-art-hyper-light-drifter-wallpaper-preview.jpg') no-repeat center center ;
     background-size: 100vw 100vh;
+    background-attachment: fixed;
     height: 100vh;
-    width: 100vw;        
     display: flex;
 }
-
-.container{
-    width: 100%;
+.glass{
     display: flex;
-    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}    
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .containerContent{
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0 0 7% 20%; 
 }
 
 .containerTitle{
     display: flex;
-    margin-bottom: 7%;
+    margin-bottom: 50px;
     animation-duration: 700ms;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.words{
+    display: flex;
 }
 .title{   
     font-weight: 500;
@@ -43,6 +60,7 @@
 
 
 .button{
+    position: relative;
     font-size: 2rem;
     padding: 1rem 2rem;
     border: none;
@@ -55,7 +73,13 @@
 .containerFooter{
     display: flex;
     align-items: flex-end;
+    width: 100%;
+    justify-content: flex-end;
     margin-right: 5px;
+    }
+.footer{
+    display: flex;
+    align-items: flex-end;
 }
 
 .logo{

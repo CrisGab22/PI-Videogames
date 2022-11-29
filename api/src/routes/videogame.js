@@ -1,6 +1,6 @@
 const express = require('express')
 const routeVideogame = express.Router()
-const {videogameId, videogameDbId} = require('../controllers.js/controllers')
+const {videogameId, videogameDbId, deleteGameDb} = require('../controllers.js/controllers')
 
 
 routeVideogame.get('/:idVideogame', async(req,res) =>{
@@ -8,7 +8,6 @@ routeVideogame.get('/:idVideogame', async(req,res) =>{
     
     if(idVideogame <= 111111110){ // esto es en caso de que sea un juego de la Api
         try {
-            
             const gameInfo = await videogameId(idVideogame)
             res.status(200).send(gameInfo)
         } catch (error) {
@@ -26,16 +25,39 @@ routeVideogame.get('/:idVideogame', async(req,res) =>{
                     released: gameCreatedInfo[0].released,
                     rating: gameCreatedInfo[0].rating,
                     platforms: gameCreatedInfo[0].platforms,
-                    genres: gameCreatedInfo[0].genres,
+                    genres: gameCreatedInfo[0].localGenres.map(el=>el), 
                     img: gameCreatedInfo[0].img,
                     createdInDb: gameCreatedInfo[0].createdInDb,
                     
                 }
-                res.status(200).send(gameCreatedInfo[0])
+                res.status(200).send(gameCreatedInfo)
         } catch (error) {
             res.status(404).json({error: error.message})
         }
 }
+})
+
+
+routeVideogame.put('/:idVideogame', async(req,res) =>{
+    const {idVideogame} = req.params
+    if(idVideogame >= 111111110){
+        try {
+            res.status(200).send(updateGameDb(idVideogame,req.body))
+        } catch (error) {
+            res.status(404).send(error.message)
+        }
+    }
+})
+
+routeVideogame.delete('/:idVideogame', async(req,res) =>{
+    const {idVideogame} = req.params
+    if(idVideogame >= 111111110){
+        res.status(200).send(deleteGameDb(idVideogame))
+    }
+    else{
+        res.status(404).send('error')
+    }
+
 })
 
 

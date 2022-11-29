@@ -1,5 +1,6 @@
 import {GET_VIDEOGAMES_BY_NAME, GET_ALL_VIDEOGAMES, GET_GENRES, GET_DETAILS, RESET_DETAILS, FILTERS } from "./actions";
 const initialState={
+    controlVideogameByName: false,
     details:[],
     genres: [],
     videogames: [],
@@ -14,6 +15,7 @@ const rootReducer = (state= initialState, action) =>{
         case GET_ALL_VIDEOGAMES:{
             return {
                 ...state,
+                controlVideogameByName: false,
                 videogames: action.payload,  //juegos de la API (no se modifica nunca)
                 videogamesByName:action.payload, //juegos sobre los cuales vamos a trabajar el filtrado 
                 videogamesFiltered: action.payload,  //juegos con filtros aplicados
@@ -29,11 +31,18 @@ const rootReducer = (state= initialState, action) =>{
         }
 
         case GET_DETAILS:{
+            if(!Array.isArray(action.payload)){
+                return{
+                    ...state,
+                    details: action.payload
+                }
+            }
             return{
                 ...state,
-                details: action.payload
+                details: action.payload[0]
             }
         }
+
 
         case RESET_DETAILS:{  
             return{
@@ -46,22 +55,30 @@ const rootReducer = (state= initialState, action) =>{
             if(action.payload === 'void'){         
                 return{
                     ...state,
+                    controlVideogameByName: false,
                     videogamesRender:state.videogames,
                     videogamesByName: state.videogames
+                }
+            }
+            else if(action.payload.length>1){
+                return{
+                    ...state,
+                    controlVideogameByName: false,
+                    videogamesRender: action.payload,
+                    videogamesByName: action.payload
                 }
             }
             else{
                 return{
                     ...state,
+                    controlVideogameByName: true,
                     videogamesRender: action.payload,
                     videogamesByName: action.payload
                 }
-                
             }
         }
         // eslint-disable-next-line
         case FILTERS:{
-            console.log(action.payload);
             state={
                 ...state,
                 videogamesFiltered: state.videogamesByName, //reseteamos nuestro filtros cada vez que hacemos un filtro nuevo 
@@ -153,10 +170,19 @@ const rootReducer = (state= initialState, action) =>{
                     videogamesFiltered:  abc.slice(0,abc.length)
                 }
             }
-            } 
-            return {...state,
-                videogamesRender:state.videogamesFiltered
+            if(state.videogamesFiltered.length<1){
+                return {...state,
+                    videogamesRender:state.videogamesFiltered,
+                    controlVideogameByName: true,
+                } 
             }
+            else{
+                return {...state,
+                    controlVideogameByName: false,
+                    videogamesRender:state.videogamesFiltered
+                }
+            } 
+        }
         default:{
             return {...state}
         }

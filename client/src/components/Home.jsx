@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 
 
 //Importación de Componentes
+import SearchBar from './SearchBar.jsx'
 import Pages from './Pages.jsx';
 import Videogame from './Videogame.jsx';
 import Filters from './Filters'
@@ -19,6 +20,7 @@ export default function Videogames () {
     
 //react-redux
     let videogames = useSelector(state => state.videogamesRender)
+    let controlVideogameByName = useSelector(state=> state.controlVideogameByName)
     const dispatch = useDispatch()
 
     useEffect(() =>{
@@ -54,37 +56,51 @@ export default function Videogames () {
         // function handler(e){
         //     setSearch(e)
         // }
-        
+    
 return(
     <div className={style.body}> 
-        <Navbar 
-        // handler={handler}
-        />
-        <div className={style.content}>
-            <div className={style.filters}>
-                <Filters
-                rerender={rerender}
-                // search={search}
-                />
-            </div>
-            
+        <div className={style.glass}>
+            <Navbar 
+            // handler={handler}
+            />
+            <div className={style.content}>
+                <div className={style.filters}>
+                    <Filters
+                    rerender={rerender}
+                    // search={search}
+                    />
+                </div>
+                <div className={style.SearchBarContainer}>
+                    <SearchBar/> 
+                </div>
+                <Pages  current ={current} actualPage = {videogames? actualPage:1} videogames={videogames.length}/>
+                <div className={style.ContainervideogamesGeneral}>
+                {videogames.length?
+                    <div className={style.Containervideogames}>
 
-                <Pages  current ={current} actualPage = {actualPage} videogames={videogames.length}/>
-            <div className={style.Containervideogames}>
-                {/* {videogames.length? */}
-                {videogamesSliced &&  videogamesSliced.map(game => {
-                    return <Link to={`/home/videogame/${game.idgame}`} key={game.id}>
-                        <Videogame
-                        videogames= {videogames}
-                        key= {game.id}
-                        name={game.name}
-                        localGenres ={game.localGenres}
-                        img={game.img}
-                        platforms= {game.platforms}
-                        />
-                    </Link>
-                })}
-                {/* <img src='https://i.pinimg.com/originals/91/91/85/919185a188c5cc25655fadfbc9a4a2b4.gif' alt='cargando'></img>} */}
+                    {videogamesSliced &&  videogamesSliced.map(game => {
+                        return <Link to={`/home/videogame/${game.idgame}`} key={game.id} className={style.videogameContainer}>
+                            <Videogame
+                            videogames= {videogames}
+                            key= {game.id}
+                            name={game.name}
+                            localGenres ={game.localGenres}
+                            img={game.img}
+                            platforms= {game.platforms}
+                            />
+                        </Link>
+                    })}
+                </div>
+                :
+                controlVideogameByName?
+                <div className={style.containerLoading}>
+                    <img src="https://ouch-cdn2.icons8.com/AsbSVM0BU7ROdOLjdTM5dQJSblKSu_B9Z4BUw5FOHlQ/rs:fit:456:456/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMjQ3/L2RlMmZmMjJmLTI3/YzItNGNkYS1hMTg5/LTU1OGQ5NGNiM2Ez/Mi5zdmc.png" alt="error" className={style.notFound} />
+                </div>:
+                <div className={style.containerLoading}>
+                    <img src="https://raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator.gif" alt="cargando" className={style.loading}/>
+                </div>    
+                }
+            </div>
             </div>
         </div>
     </div>

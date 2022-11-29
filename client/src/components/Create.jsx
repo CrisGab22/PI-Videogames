@@ -65,10 +65,10 @@ function Create() {
             return setForm({...form})
         }
         setForm({...form, name: e.target.value})
-        !controller.name.test(e.target.value)? setError({...error, name: ''}) : setError({...error, name:'El nombre contiene un caracter no válido'})
+        !controller.name.test(e.target.value)? setError({...error, name: ''}) : setError({...error, name:'The name contains an invalid character'})
         
-        if(e.target.value.length<4 || e.target.value.length>40){
-            setError({...error, name:'Debe tener una longitud de entre 3 y 40 caracteres'})
+        if(e.target.value.length<4 || e.target.value.length>50){
+            setError({...error, name:'Must be between 3 and 50 characters in length'})
         }
     }
 
@@ -77,30 +77,31 @@ function Create() {
             return setForm({...form})
         }
         setForm({...form,description: e.target.value})
-        controller.description.test(e.target.value)?setError({...error, description:'Existe un carácter inválido dentro de este campo'}): setError({...error, description: ''}) 
+        controller.description.test(e.target.value)?setError({...error, description:'The description contains an invalid character'}): setError({...error, description: ''}) 
             
         if(e.target.value.length<30 || e.target.value.length>1020){
-            setError({...error, description:'Debe tener una longitud de entre 30 y 1000 caracteres'})
+            setError({...error, description:'Must be between 30 and 1000 characters in length'})
         }
 }
     
     
     function handleReleasd(e){
         setForm({...form, released: e.target.value})
-        controller.released(e.target.value)? setError({...error, released:''}): setError({...error, released: 'El año debe ser uno entre 1970 y 2025'})
+        controller.released(e.target.value)? setError({...error, released:''}): setError({...error, released: 'The year must be between 1970 and 2025'})
     }
 
     function handleRating(e){
         e.target.value.length>4? 
         setForm({...form, rating: e.target.value.slice(0,4)}):
         setForm({...form, rating: e.target.value})
-        controller.rating(e.target.value)? setWarnings({...warnings, rating:''}): setWarnings({...warnings, rating: 'El rating debe ser un puntaje de entre 5 y 0'})
+        controller.rating(e.target.value)? setWarnings({...warnings, rating:''}): setWarnings({...warnings, rating: 'The rating must be a number between 0 and 5'})
     }
     function handleImg(e){
         setForm({...form, img: e.target.value})
-        controller.img.test(e.target.value)? setWarnings({...warnings, img:''}): setWarnings({...warnings, img: 'la Url no es válida'})
+        controller.img.test(e.target.value)? setWarnings({...warnings, img:''}): setWarnings({...warnings, img: 'The Url is not valid'})
         if(e.target.value.length===0) setWarnings({...warnings,img:''})
     }
+    console.log(form.rating)
 
     function handlePlatforms(e){
         let platform = e.target.value.split(',')
@@ -113,7 +114,7 @@ function Create() {
         if(form.platforms.length===0){
         setForm({...form,platforms:[...form.platforms,platform]})
         }
-    controller.platforms(e)? setError({...error, platforms:''}): setError({...error, platforms: 'Debe seleccionar al menos 2 pplataformas'})
+    controller.platforms(e)? setError({...error, platforms:''}): setError({...error, platforms: 'You must select at least 2 platforms'})
     }
     function handleGenres(e){
         if(form.genres.length>=1){
@@ -123,7 +124,7 @@ function Create() {
         if(form.genres.length===0){
         setForm({...form,genres:[...form.genres,e.target.value]})
         }
-        controller.genres(e)? setError({...error, genres:''}): setError({...error, genres: 'Debe seleccionar al menos 2 géneros'})
+        controller.genres(e)? setError({...error, genres:''}): setError({...error, genres: 'You must select at least 2 genres'})
     }
     
     let platforms = [
@@ -148,24 +149,28 @@ function Create() {
         dispatch(postVideogame(form))
         setSuccess(true)
     }
+    console.log(form)
     return(
         success===false?
         <div className={style.body}>
             <div className={style.glass}>
                 <div className={style.container}>
                     <div className={style.form}>
-                        <h2 className={style.title}>Crear Juego</h2>
+                        <Link to={'/home'}>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Back_Arrow.svg/1024px-Back_Arrow.svg.png" alt="back"  className={style.back}/>
+                        </Link>
+                        <h2 className={style.title}>Create Game</h2>
                         <form onSubmit={(e)=>handleSubmit(e)}>
-                            <label className={style.name}>Nombre</label>
-                            <input  type="text" className={style.inputText} placeholder={'Inserte el nombre de su juego*'} onChange={(e) => handleName(e)} value={form.name}/> 
+                            <label className={style.name}>Name</label>
+                            <input  type="text" className={style.inputText} placeholder={'Insert the name of your game*'} onChange={(e) => handleName(e)} value={form.name}/> 
                             <label className={style.error}>{error.name}</label><br/>
 
-                            <label className={style.name} >Descripción</label> 
-                            <textarea className={style.inputTextArea} placeholder={'Inserte la descripción de su juego*'} onChange={(e) => handleDescription(e)} value={form.description}/> 
+                            <label className={style.name} >Descripton</label> 
+                            <textarea className={style.inputTextArea} placeholder={'Insert the description of your game*'} onChange={(e) => handleDescription(e)} value={form.description}/> 
                             <label className={style.error}>{error.description}</label><br/>
 
                                 <div className={`${style.containerInput} ${style.containerInputRating} `}>
-                                    <label className={style.released}>Fecha de lanzamiento*</label>
+                                    <label className={style.released}>Release Date*</label>
                                     <input type="date" className={style.inputReleased} onChange={(e) => handleReleasd(e)} value={form.released}/> <br />
                                     <label className={style.error}>{error.released}</label><br/>
                                 </div>
@@ -176,15 +181,15 @@ function Create() {
                                 </div>
 
 
-                                <label className={style.name}>Imagen URL</label>
-                                <input type="text" className={style.inputText} placeholder={'Ingrese la URL de su imagen'}  onChange={(e) => handleImg(e)} value={form.img}/> 
+                                <label className={style.name}>Image URL</label>
+                                <input type="text" className={style.inputText} placeholder={'Paste the url of your image'}  onChange={(e) => handleImg(e)} value={form.img}/> 
                                 <label className={style.error}>{warnings.img}</label><br/>
 
                                 <div>
                                     <div className={style.containerInput}>
-                                        <label className={style.rating}>Plataformas*</label>
+                                        <label className={style.rating}>Platforms*</label>
                                         <select className={style.inputPlatforms} onChange={(e) =>{handlePlatforms(e) }} value={form.platforms}>
-                                            <option value={''}  hidden>Elige una plataforma</option>
+                                            <option value={''}  hidden>Choose a Platform</option>
                                             {platforms?.map((platform) =>{
                                                 return(
                                                     <option value={platform} key={platform[1]}>{platform[0]}</option>
@@ -210,9 +215,9 @@ function Create() {
                                 <div>
                                     <div className={style.containerInput}>
 
-                                    <label className={style.rating}>Géneros*</label>
+                                    <label className={style.rating}>Genres*</label>
                                         <select className={style.inputPlatforms} onChange={(e) =>{handleGenres(e) }} value={form.genres}>
-                                            <option hidden>Elige un género</option>
+                                            <option hidden>Choose a Genre</option>
                                             {genres?.map(genre =>{
                                                 return(
                                                     <option value={genre.name} key={genre.id}>{genre.name}</option>
@@ -240,13 +245,13 @@ function Create() {
                             <div className={style.containerButton}>
                             <button type="submit" className={style.button}
                             onClick={() => handlerSuccess()}
-                            >Añadir Juego</button>
+                            >Add Game</button>
                             </div>
                             
                             :    <div className={style.containerButton}>
                             <button  className={style.buttonDisable}
                             disabled
-                            >Añadir Juego</button>
+                            >Add Game</button>
                             </div>
                         }
                         </form>
@@ -258,10 +263,10 @@ function Create() {
     <div className={style.body}>
         <div className={style.glass}>
             <div className={style.containerSuccess}>
-                <h2 className={style.textSuccess}>Su juego ha sido agregado</h2>
+                <h2 className={style.textSuccess}>Your game has been added</h2>
                 <div className={style.return}>
                     <Link to={'/home'}>
-                        <button className={style.backBtn}>Volver</button>
+                        <button className={style.backBtn}>Back</button>
                     </Link>
                 </div>
             </div>

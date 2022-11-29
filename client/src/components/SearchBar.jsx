@@ -13,16 +13,16 @@ function SearchBar() {
         setSearched(e.target.value)
         // handler(e.target.value)
     }
+    // eslint-disable-next-line
     const[searched, setSearched] = useState('')
 
 
     return(
-        <div>
-            <form  onSubmit={(e)=>e.preventDefault()}>
-                <input type="text"  className={`${style.searchBar}`} onChange={(e) =>handleSearch(e)} value={searched} />
+            <form  onSubmit={(e)=>e.preventDefault()} className={style.container}>
+                <input type="text"  className={`${style.searchBar}`} onChange={(e) =>handleSearch(e)} />
+                <input type={'submit'} className={style.img} value=''></input>
             </form>
 
-        </div>
     )
 }
 

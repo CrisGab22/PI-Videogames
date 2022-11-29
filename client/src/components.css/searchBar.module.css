@@ -1,4 +1,30 @@
+.container{
+    display: flex;
+    background: white;
+    border-radius: 50px;
+}
 .searchBar{
-    padding: 5px 0;
-    width: 200px
+    padding: 10px 8px ;
+    width: 200px;
+    border: none;
+    display: flex;
+    border-radius: 50px;
+}
+.img{
+    display: flex;
+    border: none;
+    padding: 8px 17px;
+    background: url('https://cdn-icons-png.flaticon.com/512/107/107122.png') center no-repeat;
+    background-color: rgb(235, 235, 235);
+    border-radius: 50px;
+    background-size: 70%;
+}
+
+.img:hover{
+    background-color: rgb(209, 206, 206);
+    cursor: pointer;
+}
+
+.searchBar:focus{
+    outline: none;
 }

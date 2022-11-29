@@ -1,0 +1,59 @@
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    background: url('https://i.pinimg.com/originals/20/54/97/205497ee52942b78ef8b2b46e65ae78c.gif') no-repeat center;
+    background-size: 100vw 100vh  ;
+    background-attachment: fixed;
+}
+
+.glass{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);    
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-backdrop-filter: blur(10px);
+    min-height: 100vh;
+}
+
+.containerWarning{
+    display: flex;
+    flex-direction: column;
+    padding:0 10px ;
+    border-radius: 10px;
+    background-color: rgb(238, 238, 238);
+    width: 400px;
+    height: 140px;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 250px ;
+}
+
+.containerButtons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.button{
+    font-family: monospace;
+    padding: 15px 20px;
+    border: black solid 1px;
+    border-radius: 5px;
+    background: rgb(0, 247, 164);
+}
+.button:hover{
+    cursor: pointer;
+    background: rgb(37, 255, 182);
+    opacity: 90%;
+}
+.buttonRed{
+    background-color: rgb(253, 86, 86);
+}
+
+.buttonRed:hover{
+    background-color: rgb(253, 144, 144);
+}

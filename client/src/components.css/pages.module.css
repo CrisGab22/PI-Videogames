@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
 .container{
     justify-content: center;
     display: flex;
@@ -9,30 +11,30 @@
     align-items: center;
 }
 .page{
+    font-family: Dosis;
     display: flex;  
     align-items: center;
-    background-color: rgb(78, 117, 190);
+    background-color: rgb(255, 65, 138);
     padding: 10px 15px;
 }
 .pageActual{
-    background-color: rgb(110, 146, 187);
-    
+    background-color: rgb(253, 101, 160);    
 }
 
 .page:hover{
-    background-color: rgb(95, 105, 160);
+    background-color: rgb(247, 118, 167);    
     cursor: pointer;
 }
 
 .button{
     display: flex;
-    padding: 5px 9px;
+    padding: 7px 9px;
     align-items: center;
     margin: 0 10px;
     border: none;
     border-radius: 7px;
     background-color: transparent;
-    color: rgb(5, 50, 133);
+    color: white;
 }
 
 .hiddenButton{

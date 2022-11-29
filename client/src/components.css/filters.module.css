@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
 .container{
     display: flex;
     justify-content: center;
@@ -5,18 +7,20 @@
 }
 
 .bgColor{
-    margin: 1px;
-    background: rgba(95, 158, 160, 0.705);
-    border: solid  1px;
+    background-color: white;
+    margin:  4px ;
     border-radius: 6px;
 }
 
 .bgColor:hover{
-    background: rgba(111, 179, 182, 0.705)
+    background: rgb(219, 235, 250)
 }
 
 .filter{
-    padding: 2px;
-    border: none;
     background-color: transparent;
+    padding: 6px 6px;
+    border-radius: 10px;
+    border: none;
+    font-family: Dosis;
+    font-size: 16px;
 }

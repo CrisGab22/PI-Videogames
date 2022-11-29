@@ -42,6 +42,7 @@
     animation-duration: 1500ms;
 }
 .button:hover{
+    cursor: pointer;
     animation-name: expand;
     animation-duration: 400ms;
     background-color: rgb(57, 23, 88);

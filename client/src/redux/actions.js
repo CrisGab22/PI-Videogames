@@ -39,6 +39,28 @@ export function postVideogame(info){
     }
 }
 
+export function updateVideogame(info,params){
+    function partitionDescription() {
+        let description = info.description
+        let slice1 = description.slice(0,255)
+        let slice2 = description.slice(255,510)
+        let slice3 = description.slice(500,765) 
+        let slice4 = description.slice(765,1020) 
+        return info = {...info,
+        description:slice1,
+        description1:slice2,
+        description2:slice3,
+        description3:slice4,
+    }
+}
+partitionDescription(info)
+    return async function updateVideogame(){
+        const putVideogame = await axios.put(`http://localhost:3001/videogame/${params.id}`, info)
+        return putVideogame
+    }
+
+}
+
 export function getAllGenres(){
     return async function genres(dispatch){
         const genres = await axios.get('http://localhost:3001/genres')
@@ -67,28 +89,22 @@ export function resetGameDetails(){
         return dispatch ({type: RESET_DETAILS})
     }
 }
- 
-export function getPlatforms(){  //lo use para la sección de plataformas en el form para crear juegos 
-    return async function platforms(){
-        const platforms = await axios.get('https://api.rawg.io/api/platforms?key={TuApiKey}')
-        .then(info =>info.data)
-        .then(info => info.results.map(el=> {return[el.name,el.id]}))
-        console.log(platforms)
-        return platforms
+
+export function deleteGame(params){
+    return async function deletegame(){
+        const deleted = await axios.delete(`http://localhost:3001/videogame/${params.id}`)
+        return deleted
     }
 }
+ 
 
 export function getAllVideogamesName(name){
     if(name.length){
         return async function videogamesName(dispatch){
-            try {     
                 const videogamesName = await axios.get(`http://localhost:3001/videogames?name=${name}`)
                 .then(info => info.data)
                 .then(info => dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: info}))
                 return videogamesName
-            } catch (error) {
-                return dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: []})
-            }
         }
     }
     else{

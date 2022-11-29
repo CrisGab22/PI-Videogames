@@ -1,6 +1,7 @@
 require('dotenv').config();
 const {API_URL_GAMES, API_KEY, API_URL_GENRES, API_URL_GAMEID} = process.env
-const axios = require('axios')
+const axios = require('axios');
+const { where } = require('sequelize');
 const {Videogame, Genre} = require('../db')
 
 //funcion que me trae todos los primeros 100 juegos de la API 
@@ -47,6 +48,22 @@ getAllGamesDb = async() =>{
     })
 };
 
+deleteGameDb = async(id)=>{
+    return await Videogame.destroy({
+        where:{
+            "idgame":id
+        }}
+    )
+}
+
+updateGameDb = async(id,Changes) =>{
+    console.log(Changes)
+    return await Videogame.update(Changes,{
+        where:{
+            idgame:id
+        }
+    })
+}
 
 
 //función que me trae todos los generos de la API
@@ -144,5 +161,7 @@ module.exports= {
     genresCreator,
     videogamesCreator,
     videogameId,
-    videogameDbId
+    videogameDbId,
+    deleteGameDb,
+    updateGameDb
 }
