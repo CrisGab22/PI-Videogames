@@ -12,7 +12,7 @@ export const FILTERS = 'FILTERS'
 
 export function getAllVideogames(){
     return async function videogames(dispatch){
-        const videogames = await axios.get('http://localhost:3001/videogames')
+        const videogames = await axios.get('/videogames')
         .then(info => info.data)
         .then(info => dispatch({type: GET_ALL_VIDEOGAMES, payload: info}))
         return videogames
@@ -34,7 +34,7 @@ export function postVideogame(info){
     }
     return async function postVideogame(){
         partitionDescription(info)
-        const postVideogame = await axios.post('http://localhost:3001/videogames', info)
+        const postVideogame = await axios.post('/videogames', info)
         return postVideogame
     }
 }
@@ -55,7 +55,7 @@ export function updateVideogame(info,params){
 }
 partitionDescription(info)
     return async function updateVideogame(){
-        const putVideogame = await axios.put(`http://localhost:3001/videogame/${params.id}`, info)
+        const putVideogame = await axios.put(`/videogame/${params.id}`, info)
         return putVideogame
     }
 
@@ -63,7 +63,7 @@ partitionDescription(info)
 
 export function getAllGenres(){
     return async function genres(dispatch){
-        const genres = await axios.get('http://localhost:3001/genres')
+        const genres = await axios.get('/genres')
         .then(info => info.data)
         .then(info => dispatch({type: GET_GENRES, payload: info}))
         return genres
@@ -73,7 +73,7 @@ export function getAllGenres(){
 export function getGameDetails(params){
     return async function details(dispatch){
         try {
-            const details = await axios.get(`http://localhost:3001/videogame/${params}`)
+            const details = await axios.get(`/videogame/${params}`)
             .then(info => info.data)
             .then(info => dispatch({type: GET_DETAILS, payload:info}))
             return details
@@ -92,7 +92,7 @@ export function resetGameDetails(){
 
 export function deleteGame(params){
     return async function deletegame(){
-        const deleted = await axios.delete(`http://localhost:3001/videogame/${params.id}`)
+        const deleted = await axios.delete(`/videogame/${params.id}`)
         return deleted
     }
 }
@@ -101,7 +101,7 @@ export function deleteGame(params){
 export function getAllVideogamesName(name){
     if(name.length){
         return async function videogamesName(dispatch){
-                const videogamesName = await axios.get(`http://localhost:3001/videogames?name=${name}`)
+                const videogamesName = await axios.get(`/videogames?name=${name}`)
                 .then(info => info.data)
                 .then(info => dispatch({type: GET_VIDEOGAMES_BY_NAME, payload: info}))
                 return videogamesName

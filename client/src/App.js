@@ -5,7 +5,8 @@ import Create from './components/Create.jsx'
 import {Route} from 'react-router-dom'
 import Landing from './components/Landing.jsx';
 import Delete from './components/Delete.jsx'
-
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:3001/';
 
 function App() {
   return (

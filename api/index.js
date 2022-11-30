@@ -22,10 +22,10 @@ const { conn } = require('./src/db.js');
 
 const {genresCreator, videogamesCreator} = require('./src/controllers.js/controllers')
 const {Genre, Videogame} = require('./src/db')
-
+require('dotenv').config()
 // Syncing all the models at once.
 conn.sync({ force: false }).then( () => { // ----> no se va a resetear toda la DB cuando se hagan cambios 
-  server.listen(3001, async () => {
+  server.listen(process.env.PORT, async () => {
 
     //creamos los generos en la BD (si es que ya no existen)
     let tableGenre = await Genre.findAll() // miramos si que hay datos en la tabla de Genre de BD
@@ -39,6 +39,6 @@ conn.sync({ force: false }).then( () => { // ----> no se va a resetear toda la D
       console.log(`Se han guardado los videojuegos de la API a la DB`)
     }
 
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    console.log('%s listening at', process.env.PORT); // eslint-disable-line no-console
   });
 });
